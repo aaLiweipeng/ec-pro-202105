@@ -1,9 +1,8 @@
 <template>
   <div class="wrapper">
-
     <div class="position">
       <span class="iconfont position__icon">&#xe64f;</span>
-        XXXX大学XXXX区66号楼66层
+      XXXX大学XXXX区66号楼66层
       <span class="iconfont position_notice">&#xe6bb;</span>
     </div>
 
@@ -15,10 +14,89 @@
     <div class="banner">
       <img
         class="banner__img"
-        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.yipic.cn%2Fthumb%2Ff0f77685%2Fbdaa5f3f%2Ffa49ab25%2Fc7151244%2Fbig_f0f77685bdaa5f3ffa49ab25c7151244.png&refer=http%3A%2F%2Fimg.yipic.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623252871&t=7a27caac9990c344d03ff0dfff8f6c1d"/>
+        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.yipic.cn%2Fthumb%2Ff0f77685%2Fbdaa5f3f%2Ffa49ab25%2Fc7151244%2Fbig_f0f77685bdaa5f3ffa49ab25c7151244.png&refer=http%3A%2F%2Fimg.yipic.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623252871&t=7a27caac9990c344d03ff0dfff8f6c1d"
+      />
     </div>
+
+    <!-- icon网格布局 -->
+    <div class="icons">
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/菜市场.png"
+        />
+        <p class="icons__item__desc">菜市场</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/水果店.png"
+        />
+        <p class="icons__item__desc">水果店</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/超市.png"
+        />
+        <p class="icons__item__desc">超市便利</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/鲜花.png"
+        />
+        <p class="icons__item__desc">鲜花绿植</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/医药健康.png"
+        />
+        <p class="icons__item__desc">医药健康</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/家居.png"
+        />
+        <p class="icons__item__desc">家居时尚</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/蛋糕.png"
+        />
+        <p class="icons__item__desc">烘焙蛋糕</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/签到.png"
+        />
+        <p class="icons__item__desc">签到</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/大牌免运.png"
+        />
+        <p class="icons__item__desc">大牌免运</p>
+      </div>
+      <div class="icons__item">
+        <img
+          class="icons__item__img"
+          src="http://www.dell-lee.com/imgs/vue3/红包.png"
+        />
+        <p class="icons__item__desc">红包套餐</p>
+      </div>
+    </div>
+
+    <!-- 网格布局下 灰色间隔线区 -->
+    <div class="gap"></div>
   </div>
 
+  <!-- 底部导航栏 -->
   <div class="docker">
     <span class="docker__item docker__item--active">
       <div class="iconfont">&#xe7c7;</div>
@@ -37,7 +115,6 @@
       <div class="docker_title">我的</div>
     </span>
   </div>
-
 </template>
 
 <style lang="scss">
@@ -45,16 +122,17 @@
 @import "./style/mixins.scss";
 
 .wrapper {
+  //内容的 根布局
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0.5rem;
   right: 0;
-  padding: 0 0.18rem; //间隔 上下无 左右0.18
+  padding: 0 0.18rem; //整体内容留白 间隔 上下无 左右0.18
 }
 
 .position {
-  //顶部栏目
+  //顶部位置栏
   position: relative; //相对于父布局
   // padding: .16rem 0;//间隔 上下0.16 左右无
   padding: 0.16rem 0.24rem 0.16rem 0; //间隔 上.16 右.24 下.16 左0
@@ -74,8 +152,9 @@
   }
   color: $content-fontcolor;
 }
+
 .search {
-  margin-bottom: .12rem;//与 banner间距
+  margin-bottom: 0.12rem; //与 banner间距
   line-height: 0.32rem; //组件高
   background: #f5f5f5; //背景颜色
   color: #b7b7b7; //文字颜色
@@ -84,11 +163,11 @@
 
   .iconfont {
     //search 下的 图标样式
-    position: relative;//相对于 父布局
-    top: .01rem;//相对于 父布局 下移 .01rem 调整图标居中
+    position: relative; //相对于 父布局
+    top: 0.01rem; //相对于 父布局 下移 .01rem 调整图标居中
     // display: inline-block;
-    padding: 0 .12rem 0 .16rem;
-    font-size: .13rem;
+    padding: 0 0.12rem 0 0.16rem;
+    font-size: 0.13rem;
 
     //细节调控--垂直居中
     display: table-cell;
@@ -99,27 +178,60 @@
   &__text {
     //搜索框文本 ---
     // display: inline-block;
-    font-size: .14rem;
+    font-size: 0.14rem;
 
     //细节调控--垂直居中
     display: table-cell;
     vertical-align: middle;
     text-align: center;
   }
+} //search
+
+//icon网格布局
+.icons {
+  display: flex;
+  flex-wrap: wrap; //一行不够放，就换行！
+  margin-top: 0.16rem;
+  &__item {
+    //网格item
+    width: 20%;
+
+    &__img {
+      //网格item中的 图
+      display: block; //定义block 方便操作宽高
+      width: 0.4rem;
+      height: 0.4rem;
+      margin: 0 auto;
+    }
+    &__desc {
+      //网格item中的 文字
+      margin: 0.06rem 0 0.16rem 0;
+      text-align: center; //居中
+      color: $content-fontcolor;
+    }
+  }
 }
 
-.banner{
+.banner {
   //以下三行，用于防止弱网时，图标加载太慢
   //导致周围组件 发生抖动
   height: 0;
   overflow: hidden;
-  padding-bottom: 46.7%;//图片的宽高比，图片未下载好时提前占位 373/798≈0.4674
+  padding-bottom: 46.7%; //图片的宽高比，图片未下载好时提前占位 373/798≈0.4674
 
   &__img {
-    width: 100%;//撑满父布局
+    width: 100%; //撑满父布局
   }
 }
 
+//网格布局下 灰色间隔线区
+.gap {
+  margin: 0 -.18rem;//上下无 左右外撑0.18 撑过wrapper的padding
+  height: .1rem;
+  background: $content-bgColor;
+}
+
+//底部导航栏
 .docker {
   display: flex;
   box-sizing: border-box;
@@ -129,7 +241,7 @@
   bottom: 0;
   width: 100%;
   height: 0.49rem;
-  border-top: 0.01rem solid #f10000;
+  border-top: 0.01rem solid $content-bgColor; //顶部边框 及其样式
   color: $content-fontcolor;
   &__item {
     //等价于 .docker__item
