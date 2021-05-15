@@ -94,6 +94,88 @@
 
     <!-- 网格布局下 灰色间隔线区 -->
     <div class="gap"></div>
+
+    <!-- 附近栏 -->
+    <div class="nearby">
+      <!-- 附近栏标题 -->
+      <h3 class="nearby__title">附近店铺</h3>
+
+      <!-- 附近栏Item -->
+      <div class="nearby__item">
+        <!-- item 左侧图 -->
+        <img
+          src="http://www.dell-lee.com/imgs/vue3/near.png"
+          class="nearby__item__img"
+        >
+        <!-- item 右侧内容 -->
+        <div class="nearby__content">
+          <div class="nearby__content__title">沃尔玛</div>
+          <div class="nearby__content__tags">
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+          </div>
+          <p class="nearby__content__highlight">满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5</p>
+        </div>
+      </div>
+
+      <!-- 附近栏Item -->
+      <div class="nearby__item">
+        <!-- item 左侧图 -->
+        <img
+          src="http://www.dell-lee.com/imgs/vue3/near.png"
+          class="nearby__item__img"
+        >
+        <!-- item 右侧内容 -->
+        <div class="nearby__content">
+          <div class="nearby__content__title">沃尔玛</div>
+          <div class="nearby__content__tags">
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+          </div>
+          <p class="nearby__content__highlight">满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5</p>
+        </div>
+      </div>
+
+      <!-- 附近栏Item -->
+      <div class="nearby__item">
+        <!-- item 左侧图 -->
+        <img
+          src="http://www.dell-lee.com/imgs/vue3/near.png"
+          class="nearby__item__img"
+        >
+        <!-- item 右侧内容 -->
+        <div class="nearby__content">
+          <div class="nearby__content__title">沃尔玛</div>
+          <div class="nearby__content__tags">
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+          </div>
+          <p class="nearby__content__highlight">满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5</p>
+        </div>
+      </div>
+
+      <!-- 附近栏Item -->
+      <div class="nearby__item">
+        <!-- item 左侧图 -->
+        <img
+          src="http://www.dell-lee.com/imgs/vue3/near.png"
+          class="nearby__item__img"
+        >
+        <!-- item 右侧内容 -->
+        <div class="nearby__content">
+          <div class="nearby__content__title">沃尔玛</div>
+          <div class="nearby__content__tags">
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+            <span class="nearby__content_tag">月售6666</span>
+          </div>
+          <p class="nearby__content__highlight">满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- 底部导航栏 -->
@@ -115,6 +197,7 @@
       <div class="docker_title">我的</div>
     </span>
   </div>
+
 </template>
 
 <style lang="scss">
@@ -122,13 +205,14 @@
 @import "./style/mixins.scss";
 
 .wrapper {
+  overflow-y: auto;//处理溢出，使得底部导航栏不会跟着动
   //内容的 根布局
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0.5rem;
   right: 0;
-  padding: 0 0.18rem; //整体内容留白 间隔 上下无 左右0.18
+  padding: 0 0.18rem .2rem .18rem; //整体内容留白 间隔 上左 下.2，给内容底部留白 右
 }
 
 .position {
@@ -229,6 +313,56 @@
   margin: 0 -.18rem;//上下无 左右外撑0.18 撑过wrapper的padding
   height: .1rem;
   background: $content-bgColor;
+}
+
+//附近栏
+.nearby {
+  //附近栏总标题
+  &__title {
+    margin: .16rem 0 0.04rem 0;
+    font-size: .18rem;
+    font-weight: normal;
+    color: $content-fontcolor;
+  }
+
+  &__item {
+    //附近栏 item
+    display: flex;
+    padding-top: .12rem;//----------------
+
+    &__img {
+      margin-right: .16rem;
+      width: .56rem;
+      height: .56rem;
+    }
+  }
+  &__content {
+    flex: 1;
+    border-bottom: 2px solid $content-bgColor;//item 内容content 下边框
+    padding-bottom: .12rem;
+
+    //item 内容 标题
+    &__title {
+      line-height: .22rem;
+      font-size: .16rem;
+      color: $content-fontcolor;
+    }
+    &__tags {
+      margin-top: 0.08rem;
+      line-height: .18rem;
+      font-size: .13rem;
+      color: $content-fontcolor;
+    }
+    &__tag {
+      margin-right: .16rem;
+    }
+    &__highlight {
+      margin: 0.08rem 0 0 0;
+      line-height: .18rem;
+      font-size: .13rem;
+      color: #e93b3b;
+    }
+  }
 }
 
 //底部导航栏
