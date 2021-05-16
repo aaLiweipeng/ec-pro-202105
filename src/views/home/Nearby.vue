@@ -1,104 +1,90 @@
 <template>
-    <!-- 附近栏 -->
-    <div class="nearby">
-      <!-- 附近栏标题 -->
-      <h3 class="nearby__title">附近店铺</h3>
+  <!-- 附近栏 -->
+  <div class='nearby'>
+    <!-- 附近栏标题 -->
+    <h3 class='nearby__title'>附近店铺</h3>
 
-      <!-- 附近栏Item -->
-      <div class="nearby__item">
-        <!-- item 左侧图 -->
-        <img
-          src="http://www.dell-lee.com/imgs/vue3/near.png"
-          class="nearby__item__img"
-        />
-        <!-- item 右侧内容 -->
-        <div class="nearby__content">
-          <div class="nearby__content__title">沃尔玛</div>
-          <div class="nearby__content__tags">
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-          </div>
-          <p class="nearby__content__highlight">
-            满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5
-          </p>
+    <!-- 附近栏Item -->
+    <div
+      class='nearby__item'
+      v-for="item in nearbyList"
+      :key="item.id">
+      <!-- item 左侧图 -->
+      <img
+        :src='item.imgUrl'
+        class='nearby__item__img'>
+      <!-- item 右侧内容 -->
+      <div class='nearby__content'>
+        <div class='nearby__content__title'>{{item.title}}</div>
+        <div class='nearby__content__tags'>
+          <span
+            class='nearby__content_tag'
+            v-for="(innerItem, innerIndex) in item.tags"
+            :key="innerIndex"
+            >{{innerItem}}</span>
         </div>
-      </div>
-
-      <!-- 附近栏Item -->
-      <div class="nearby__item">
-        <!-- item 左侧图 -->
-        <img
-          src="http://www.dell-lee.com/imgs/vue3/near.png"
-          class="nearby__item__img"
-        />
-        <!-- item 右侧内容 -->
-        <div class="nearby__content">
-          <div class="nearby__content__title">沃尔玛</div>
-          <div class="nearby__content__tags">
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-          </div>
-          <p class="nearby__content__highlight">
-            满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5
-          </p>
-        </div>
-      </div>
-
-      <!-- 附近栏Item -->
-      <div class="nearby__item">
-        <!-- item 左侧图 -->
-        <img
-          src="http://www.dell-lee.com/imgs/vue3/near.png"
-          class="nearby__item__img"
-        />
-        <!-- item 右侧内容 -->
-        <div class="nearby__content">
-          <div class="nearby__content__title">沃尔玛</div>
-          <div class="nearby__content__tags">
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-          </div>
-          <p class="nearby__content__highlight">
-            满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5
-          </p>
-        </div>
-      </div>
-
-      <!-- 附近栏Item -->
-      <div class="nearby__item">
-        <!-- item 左侧图 -->
-        <img
-          src="http://www.dell-lee.com/imgs/vue3/near.png"
-          class="nearby__item__img"
-        />
-        <!-- item 右侧内容 -->
-        <div class="nearby__content">
-          <div class="nearby__content__title">沃尔玛</div>
-          <div class="nearby__content__tags">
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-            <span class="nearby__content_tag">月售6666</span>
-          </div>
-          <p class="nearby__content__highlight">
-            满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5
-          </p>
-        </div>
+        <p class='nearby__content__highlight'>{{item.desc}}</p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Nearby'
+  name: 'Nearby',
+  setup () {
+    const nearbyList = [
+      {
+        id: 1,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      },
+      {
+        id: 2,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      },
+      {
+        id: 3,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      },
+      {
+        id: 4,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      },
+      {
+        id: 5,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      },
+      {
+        id: 6,
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
+        title: '沃尔玛',
+        tags: ['月售6666', '月售6666', '月售6666'],
+        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
+      }
+    ]
+    return { nearbyList }
+  }
 }
 </script>
 
-<style lang="scss">
-@import "../../style/viriables.scss";
-@import "../../style/mixins.scss";
+<style lang='scss'>
+@import '../../style/viriables.scss';
+@import '../../style/mixins.scss';
 //附近栏
 .nearby {
   //附近栏总标题

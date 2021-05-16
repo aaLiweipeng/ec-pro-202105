@@ -1,28 +1,37 @@
 <template>
-    <!-- 底部导航栏 -->
+  <!-- 底部导航栏 -->
   <div class="docker">
-    <span class="docker__item docker__item--active">
-      <div class="iconfont">&#xe7c7;</div>
-      <div class="docker_title">首页</div>
-    </span>
-    <span class="docker__item docker__item--active">
-      <div class="iconfont">&#xe63a;</div>
-      <div class="docker_title">购物车</div>
-    </span>
-    <span class="docker__item docker__item--active">
-      <div class="iconfont">&#xe61e;</div>
-      <div class="docker_title">订单</div>
-    </span>
-    <span class="docker__item docker__item--active">
-      <div class="iconfont">&#xe66f;</div>
-      <div class="docker_title">我的</div>
-    </span>
+    <div
+      v-for = "(item, index) in dockerList"
+      :class="{ 'docker__item': true, 'docker__item--active': index === 0}"
+      :key="item.icon"
+    >
+
+      <!-- 这里不可以用插值表达式写，
+      因为 &# 会被自动转义成 文本，
+      无法实施符号特性；
+      改完记得刷新下页面！！！ -->
+      <!-- <div class="iconfont">{{item.icon}}</div> -->
+
+      <div class="iconfont" v-html="item.icon" />
+      <div class="docker_title">{{item.text}}</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Docker'
+  name: 'Docker',
+  setup () {
+    const dockerList = [
+      { icon: '&#xe7c7;', text: '首页' },
+      { icon: '&#xe63a;', text: '购物车' },
+      { icon: '&#xe61e;', text: '订单' },
+      { icon: '&#xe66f;', text: '我的' }
+    ]
+
+    return { dockerList }
+  }
 }
 </script>
 
