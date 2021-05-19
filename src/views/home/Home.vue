@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   overflow-y: auto; //处理溢出，使得底部导航栏不会跟着动
   //内容的 根布局

@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../style/viriables.scss";
 @import "../../style/mixins.scss";
 //底部导航栏
