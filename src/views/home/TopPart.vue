@@ -68,6 +68,7 @@ export default {
   line-height: 0.22rem;
   font-size: 0.16rem;
   @include ellipsis;
+
   .position__icon {
     position: relative; //相对于父布局
     top: 0.01rem;
