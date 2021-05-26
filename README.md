@@ -3,8 +3,9 @@ An electronic commerce APP power by Vue3.0
 
 <br>
 
+## 首页部分
+
 #### 项目初始化
----
 
 ![](https://upload-images.jianshu.io/upload_images/9125154-b302314834f7a6f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-8bcef3cc7520640e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-240e498ce3d70ea4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -121,11 +122,14 @@ browserslist 指定项目兼容浏览器或设备的版本，
 ![](https://upload-images.jianshu.io/upload_images/9125154-032cb7c936ff58cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####目录 | package-lock.json
+
+#### 目录 | package-lock.json
 **保证多人协作的时候，依赖能有一个固定的版本；**
 
-<br>
-####目录 | src
+<br> 
+
+#### 目录 | src
+
 **这里各个文件目录的作用和使用前面基本都用到过了；
 assets目录下放一些静态的文件；**
 
@@ -133,7 +137,9 @@ assets目录下放一些静态的文件；**
 ![](https://upload-images.jianshu.io/upload_images/9125154-f8fb86d8aa70e43f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####样式兼容浏览器
+
+#### 样式兼容浏览器
+
 >**有些HTML标签，同一个标签，在不同的浏览器上，展示效果不一致；
 为了 写出来的样式 可以在所有的浏览器上 保持一致，
 需要借助一下`normallize.css`；**
@@ -174,7 +180,9 @@ assets目录下放一些静态的文件；**
 ![](https://upload-images.jianshu.io/upload_images/9125154-efc1845de3f97a07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####使用移动端模拟器
+
+#### 使用移动端模拟器
+
 **首先可以调整一下测试栏的位置：**
 
 ![](https://upload-images.jianshu.io/upload_images/9125154-750c3fdd136fc87f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -184,20 +192,79 @@ assets目录下放一些静态的文件；**
 ![](https://upload-images.jianshu.io/upload_images/9125154-74a216a262dd42bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####iconfont.cn阿里矢量图标库的使用【采集icon到项目】
-**登录后，搜索图标然后加入购物车：![](https://upload-images.jianshu.io/upload_images/9125154-f7ec6797abea77c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)把购物车里的图标加入项目：![](https://upload-images.jianshu.io/upload_images/9125154-66363a66ff4fa717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)加入已有项目：![](https://upload-images.jianshu.io/upload_images/9125154-170baabf88ade915.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)或者新建一个项目：![](https://upload-images.jianshu.io/upload_images/9125154-b3e0fa85ba8c1763.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)点击到【我的项目】：![](https://upload-images.jianshu.io/upload_images/9125154-291e13ba908b3f8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)可以查看已有的项目内容：![](https://upload-images.jianshu.io/upload_images/9125154-bd7c36d5b9a55d1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)点击下载到本地，
-可以将当前目录下的图标的各种格式打包成zip下载下来：![](https://upload-images.jianshu.io/upload_images/9125154-33fa65435bdfc068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)把其中的iconfont.css的这一部分代码复制一下：![](https://upload-images.jianshu.io/upload_images/9125154-5d5d331d0f4114a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-在style目录下新建一个css文件，如iconfont.css，把复制的代码贴到这里，
+
+#### iconfont.cn阿里矢量图标库的使用【采集icon到项目】
+**登录后，搜索图标然后加入购物车：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-f7ec6797abea77c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**把购物车里的图标加入项目：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-66363a66ff4fa717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**加入已有项目：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-170baabf88ade915.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**或者新建一个项目：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-b3e0fa85ba8c1763.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**点击到【我的项目】：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-291e13ba908b3f8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**可以查看已有的项目内容：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-bd7c36d5b9a55d1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**点击下载到本地，
+可以将当前目录下的图标的各种格式打包成zip下载下来：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-33fa65435bdfc068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**把其中的iconfont.css的这一部分代码复制一下：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-5d5d331d0f4114a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**在style目录下新建一个css文件，如iconfont.css，把复制的代码贴到这里，
 不过这里引用的代码还是本地的，
-我们可以替换成在线的：![](https://upload-images.jianshu.io/upload_images/9125154-911ddce90155a226.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-点击查看在线连接，
+我们可以替换成在线的：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-911ddce90155a226.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**点击查看在线连接，
 点击【暂无代码，点此生成】，
-可以生成在线连接代码：![](https://upload-images.jianshu.io/upload_images/9125154-702cc714c665553e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-88b7ef8762a83902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)复制上面的在线url引用代码，贴到项目里：![](https://upload-images.jianshu.io/upload_images/9125154-c302fd2f028ed33f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)main.js引入这个css文件：![](https://upload-images.jianshu.io/upload_images/9125154-ff399ba3d575ec1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)到这里环境就配置完成了；
-接着在iconfont网页上，移动到图标上，点击复制对应图标的代码，如`&#xe7c7;`：![](https://upload-images.jianshu.io/upload_images/9125154-579251f5eb16ad6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)最后在DOM节点中使用就可以了，
-注意写上`class="iconfont"`：![](https://upload-images.jianshu.io/upload_images/9125154-ef827efd3c2b8054.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)效果：![](https://upload-images.jianshu.io/upload_images/9125154-80998231fb401456.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+可以生成在线连接代码：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-702cc714c665553e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-88b7ef8762a83902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**复制上面的在线url引用代码，贴到项目里：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-c302fd2f028ed33f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**main.js引入这个css文件：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-ff399ba3d575ec1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**到这里环境就配置完成了；
+接着在iconfont网页上，移动到图标上，点击复制对应图标的代码，如`&#xe7c7;`：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-579251f5eb16ad6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**最后在DOM节点中使用就可以了，
+注意写上`class="iconfont"`：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-ef827efd3c2b8054.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**效果：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-80998231fb401456.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####浏览器最小只能使用12px的文字尺寸，如果要显示10px，需要写20px然后缩小一半
+
+#### 浏览器最小只能使用12px的文字尺寸，如果要显示10px，需要写20px然后缩小一半
+
 ```
 .docker_title {
   font-size: 20px;
@@ -207,8 +274,11 @@ assets目录下放一些静态的文件；**
 ```
 
 <br>
-####优化 | 有从属关系的css 可以简写
-注意这里的flex流式布局
+
+#### 优化 | 有从属关系的css 可以简写
+
+**注意这里的flex流式布局**
+
 ```
 <template>
   <div class="docker">
@@ -284,13 +354,27 @@ assets目录下放一些静态的文件；**
 ```
 
 <br>
-####优化 | css引入的简写
-**当前的css文件引入我们是这样写的：![](https://upload-images.jianshu.io/upload_images/9125154-8ed58c47897bf6b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)其实我们可以在style目录下新建一个文件，如`index.scss`，
-然后把需要引用的css文件都写在这里面：![](https://upload-images.jianshu.io/upload_images/9125154-15940431a91f2a11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)这样，
-使用的时候就只要引入`index.scss`这个“引用汇总文件”就可以了：![](https://upload-images.jianshu.io/upload_images/9125154-fcabd0d940a0e661.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+
+#### 优化 | css引入的简写
+
+**当前的css文件引入我们是这样写的：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-8ed58c47897bf6b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**其实我们可以在style目录下新建一个文件，如`index.scss`，
+然后把需要引用的css文件都写在这里面：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-15940431a91f2a11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**这样，
+使用的时候就只要引入`index.scss`这个“引用汇总文件”就可以了：**
+
+![](https://upload-images.jianshu.io/upload_images/9125154-fcabd0d940a0e661.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####1.end 至此底部栏UI基本完成
+
+#### 1.end 至此底部栏UI基本完成
+
 ```
 commit a0c19703acc3c0da070c9b2b291bdce11ff33646 (HEAD -> master)
 Author: aaLiweipeng <31944741+aaLiweipeng@users.noreply.github.com>
@@ -302,29 +386,34 @@ Date:   Sat May 8 22:18:29 2021 +0800
 
 >**github-commit: https://github.com/aaLiweipeng/ec-pro-202105/commit/30a33b963c323a12b3c1f5a15b238d3aac289a4e**
 
-<br>
-####2.1 bug | error  Trailing spaces not allowed  no-trailing-spaces
+<br> 
+
+#### 2.1 bug | error  Trailing spaces not allowed  no-trailing-spaces
 **解决方案：删除尾部多余的空格![](https://upload-images.jianshu.io/upload_images/9125154-6136b8e5d61442c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
 
 
 <br>
-####2.2 注意 | CSS Class的优先级
+
+#### 2.2 注意 | CSS Class的优先级
 **有时候同一个标签，
 我们可能会给它定义了多个CSS Class：![](https://upload-images.jianshu.io/upload_images/9125154-6d3f35269fbe2e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)这个时候，
 我们可以用这种 嵌套 且 不使用`&...`简写 的方式，
 提高CSS Class的优先级：![](https://upload-images.jianshu.io/upload_images/9125154-32a081be4be29343.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)如此，`position__icon`的优先级会比`iconfont`高；**
 
-<br>
-####2.3 新建scss文件，定义通用的样式变量【类似 `android的res/style/` 下文件】
+<br> 
+
+#### 2.3 新建scss文件，定义通用的样式变量【类似 `android的res/style/` 下文件】
 **![](https://upload-images.jianshu.io/upload_images/9125154-50343f5274bca082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)使用示例：![](https://upload-images.jianshu.io/upload_images/9125154-8c2bc34512b037b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
 
 
 <br>
-####2.4 新建scss文件，封装mixin，效果同上
+
+#### 2.4 新建scss文件，封装mixin，效果同上
 **![](https://upload-images.jianshu.io/upload_images/9125154-62579039ec5592b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)使用示例：![](https://upload-images.jianshu.io/upload_images/9125154-8749eec0efe11196.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
 
 <br>
-####位置栏至此初步完成
+ 
+#### 位置栏至此初步完成
 ```
 commit d81edf449371f5d14972e5a6f0b328f2693cde8e (HEAD -> main, origin/main, origin/HEAD)
 Author: aaLiweipeng <31944741+aaLiweipeng@users.noreply.github.com>
@@ -336,12 +425,23 @@ Date:   Mon May 10 00:23:59 2021 +0800
 >**github:https://github.com/aaLiweipeng/ec-pro-202105/commit/d81edf449371f5d14972e5a6f0b328f2693cde8e**
 
 <br>
-#3. 搜索和 banner区域
-####3.1 新增iconfont项目图标【search】，更新项目 链接资源代码
-![](https://upload-images.jianshu.io/upload_images/9125154-b8777468807bde96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-9a0d0936412a49a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)运行效果：![](https://upload-images.jianshu.io/upload_images/9125154-9b4025db68019f7b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+# 3. 搜索和 banner区域
+
+#### 3.1 新增iconfont项目图标【search】，更新项目 链接资源代码
+
+![](https://upload-images.jianshu.io/upload_images/9125154-b8777468807bde96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/9125154-9a0d0936412a49a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+运行效果：
+
+![](https://upload-images.jianshu.io/upload_images/9125154-9b4025db68019f7b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####3.2 防止弱网时，图标加载太慢 导致周围组件 发生抖动【padding、overflow 结合 图片宽高比的 占位技巧】
+
+#### 3.2 防止弱网时，图标加载太慢 导致周围组件 发生抖动【padding、overflow 结合 图片宽高比的 占位技巧】
+
 ```
 .banner{
   //以下三行，用于防止弱网时，图标加载太慢
@@ -355,17 +455,24 @@ Date:   Mon May 10 00:23:59 2021 +0800
   }
 }
 ```
+
 >**搜索框和banner初步完成，
 GitHub：**
 
 <br>
-####4.图标 Grid网格布局
-GitHub：**
+
+#### 4.图标 Grid网格布局
+
+**GitHub：**
 
 <br>
-####5.附近栏
-GitHub：**
-######5.1 流式布局的魅力
+
+#### 5.附近栏
+
+**GitHub：**
+
+###### 5.1 流式布局的魅力
+
 ```
 //附近栏
 .nearby {
@@ -384,8 +491,11 @@ GitHub：**
   }
 }
 ```
+
 ![](https://upload-images.jianshu.io/upload_images/9125154-b7a5cf4070721a21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 <br>
+
 ```
 //附近栏
 .nearby {
@@ -404,10 +514,12 @@ GitHub：**
   }
 }
 ```
+
 ![](https://upload-images.jianshu.io/upload_images/9125154-dd8d6fd07b6143f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-######5.2 注意<p>标签的默认margin！！（其他标签 也要注意 默认margin等）
+
+###### 5.2 注意<p>标签的默认margin！！（其他标签 也要注意 默认margin等）
 ```
     &__highlight {
       // margin: 0.08rem 0 0 0;
@@ -417,7 +529,9 @@ GitHub：**
       color: #e93b3b;
     }
 ```
+  
 ![](https://upload-images.jianshu.io/upload_images/9125154-9ff1428ee16dcc78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+  
 **优化方案：
 使用详细的margin样式，处理掉默认的margin：**
 ```
@@ -428,10 +542,15 @@ GitHub：**
       color: #e93b3b;
     }
 ```
-**效果：![](https://upload-images.jianshu.io/upload_images/9125154-5a0b186d631e7fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+  
+**效果：**
+  
+![](https://upload-images.jianshu.io/upload_images/9125154-5a0b186d631e7fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-######5.3 【overflow-y: auto】处理溢出，使得底部导航栏不会跟着动
+  
+###### 5.3 【overflow-y: auto】处理溢出，使得底部导航栏不会跟着动
+  
 ```
 .wrapper {
   overflow-y: auto;//处理溢出，使得底部导航栏不会跟着动
@@ -447,16 +566,22 @@ GitHub：**
 ![](https://upload-images.jianshu.io/upload_images/9125154-7c5275906b37209c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-0b3f3b1549a0ec8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/9125154-4525286b3387ade9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####6.拆分组件代码
-**GitHub：**
+  
+#### 6.拆分组件代码
+**GitHub：** 
+  
 **--- views目录下创建一个home目录，
 home下新建一个Home.vue；
 把App.vue的内容剪切过来；
 这个时候App.vue没内容，
-然后Home里面的引用路径得改一下：![](https://upload-images.jianshu.io/upload_images/9125154-50293473bb3c44f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-然后这时候，
+然后Home里面的引用路径得改一下：**
+  
+![](https://upload-images.jianshu.io/upload_images/9125154-50293473bb3c44f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**然后这时候，
 App.vue改成一下内容，
 就可以如旧正常显示了：**
+  
 ```
 <template>
   <Home />
@@ -472,11 +597,16 @@ export default {
 </script>
 
 ```
+  
 **当然这时候只是把主页Home.vue从App.vue中拆除出去而已，
 接下来还需要继续拆分；
 首先把`position部分`到`gap部分`拆分出来，
-为顶部业务部分【TopPart】：![](https://upload-images.jianshu.io/upload_images/9125154-7bb5426585e10347.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-view/home/TopPart.vue：**
+为顶部业务部分【TopPart】：**
+  
+![](https://upload-images.jianshu.io/upload_images/9125154-7bb5426585e10347.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+  
+**view/home/TopPart.vue：**
+  
 ```
 <template>
 <div class="position">
@@ -568,7 +698,9 @@ view/home/TopPart.vue：**
 </style>
 
 ```
+  
 **然后作为子组件引入到`Home.vue`：**
+  
 ```
 <script>
 import TopPart from './TopPart'
@@ -579,12 +711,16 @@ export default {
 }
 </script>
 ```
+  
 **使用：![](https://upload-images.jianshu.io/upload_images/9125154-3bb1782035ac4bb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
-#####然后是Nearby部分的拆分
+  
+##### 然后是Nearby部分的拆分
+  
 **新建文件，
 views/home/Nearby.vue，
 把home中的【附近栏】相关的代码移过来：![](https://upload-images.jianshu.io/upload_images/9125154-e0358ca6070d49e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 home.vue中注册为子组件：**
+  
 ```
 <script>
 import TopPart from './TopPart'
@@ -596,12 +732,17 @@ export default {
 }
 </script>
 ```
-**使用：![](https://upload-images.jianshu.io/upload_images/9125154-b13ab2ab4dc105d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+  
+**使用：**
+  
+![](https://upload-images.jianshu.io/upload_images/9125154-b13ab2ab4dc105d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#####最后拆分底部导航栏部分
+##### 最后拆分底部导航栏部分
+  
 **新建 views/home/Docker.vue，
-把home中的【底部导航栏】相关的代码移过来：；
+把home中的【底部导航栏】相关的代码移过来；
 home.vue中注册为子组件：**
+  
 ```
 <script>
 import TopPart from './TopPart'
@@ -614,13 +755,18 @@ export default {
 }
 </script>
 ```
-**使用：![](https://upload-images.jianshu.io/upload_images/9125154-5a16bceaaf2cefe3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+  
+**使用：**
+  
+![](https://upload-images.jianshu.io/upload_images/9125154-5a16bceaaf2cefe3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####7.使用v-for、v-html优化代码
+  
+#### 7.使用v-for、v-html优化代码
 **主要优化Grid菜单部分，附近栏 和 底部导航栏部分等 list特性的模块，
 细节可以看 GitHub：**       
-#####7.1 iconfont转义问题
+  
+##### 7.1 iconfont转义问题
 ```
 <!-- 底部导航栏 -->
   <div class="docker">
@@ -641,7 +787,9 @@ export default {
     </div>
   </div>
 ```
-#####7.2 巧用表达式控制css处理！！！
+
+##### 7.2 巧用表达式控制css处理！！！
+
 - 处理前：
 ```
   <!-- 底部导航栏 -->
@@ -653,9 +801,13 @@ export default {
     >
 .....
 ```
+      
 ![](https://upload-images.jianshu.io/upload_images/9125154-020d45da032c19e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-- 处理后，
-更改class属性，使得颜色的样式需要判断，默认是第一个有蓝色：
+      
+      
+- **处理后，
+更改class属性，使得颜色的样式需要判断，默认是第一个有蓝色：**
+      
 ```
   <!-- 底部导航栏 -->
   <div class="docker">
@@ -665,35 +817,77 @@ export default {
       :key="item.icon"
     >
 ```
+      
 ![](https://upload-images.jianshu.io/upload_images/9125154-29b032a876c864bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
     
 <br>
-#####7.3 字符串模板 匹配实战
+      
+##### 7.3 字符串模板 匹配实战
+      
 ![](https://upload-images.jianshu.io/upload_images/9125154-2ee5c4e27b5bbe4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####7.4 首页UI基本实现（画完了）
+      
+#### 7.4 首页UI基本实现（画完了）
+      
 ![](https://upload-images.jianshu.io/upload_images/9125154-02a18d81bfed51a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####8.
-####8.1 scoped 限制 样式的作用范围
+      
+#### 8.
+      
+#### 8.1 scoped 限制 样式的作用范围
+      
 **`一个组件的样式`应该只能作用于`自身组件`，
 不能影响`外部组件`或者`其他组件`；<br><br>实现方式很简单，
 只要`style标签`加个`scoped`即可，
 建议如果没有特殊的需求，
-所有`单文件组件`的`style标签`都可以加上这个特性：![](https://upload-images.jianshu.io/upload_images/9125154-5db7a2f869570d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
+所有`单文件组件`的`style标签`都可以加上这个特性：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-5db7a2f869570d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 <br>
-####8.2 安装、使用Vue.js devtools
+      
+#### 8.2 安装、使用Vue.js devtools
+      
 **需要梯子，需要在Chrome中进行，
-打开网上应用商店：![](https://upload-images.jianshu.io/upload_images/9125154-75b0d03f01a298c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-搜索 类似`vue dev`字眼：![](https://upload-images.jianshu.io/upload_images/9125154-220279a6d9ca88a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)添加该插件：![](https://upload-images.jianshu.io/upload_images/9125154-f1c5d8e883d99b48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)然后启用：![](https://upload-images.jianshu.io/upload_images/9125154-6cce5ddfb6ad00ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)然后重启Chrome，打开项目，刷新页面，
-点击如下图的位置，可以打开工具：![](https://upload-images.jianshu.io/upload_images/9125154-a8f0e30f68da1650.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)---Vue devtools第一个功能——可以轻易而直观地观察到
-页面各个 分模块/子组件 的区域 以及 分模块/子组件 名：![](https://upload-images.jianshu.io/upload_images/9125154-4a23d4eb5680da1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)这个显示的名称，取决于该组件的`文件名`【毕竟`单文件组件`】：![](https://upload-images.jianshu.io/upload_images/9125154-107e349c4dfdb55f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)不过如果文件中`<script>`中，有对`name`属性进行定义的话，则根据这个`name`属性来处理显示：![](https://upload-images.jianshu.io/upload_images/9125154-3a690a13f65da873.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)---Vue devtools第二个常用功能——
+打开网上应用商店：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-75b0d03f01a298c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+      
+**搜索 类似`vue dev`字眼：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-220279a6d9ca88a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**添加该插件：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-f1c5d8e883d99b48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**然后启用：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-6cce5ddfb6ad00ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**然后重启Chrome，打开项目，刷新页面，
+点击如下图的位置，可以打开工具：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-a8f0e30f68da1650.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**---Vue devtools第一个功能——可以轻易而直观地观察到
+页面各个 分模块/子组件 的区域 以及 分模块/子组件 名：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-4a23d4eb5680da1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**这个显示的名称，取决于该组件的`文件名`【毕竟`单文件组件`】：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-107e349c4dfdb55f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**不过如果文件中`<script>`中，有对`name`属性进行定义的话，则根据这个`name`属性来处理显示：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-3a690a13f65da873.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+      
+**---Vue devtools第二个常用功能——
 双击某个模块，可以看到其对应的数据、路由情况，
-方便做参数调测等：![](https://upload-images.jianshu.io/upload_images/9125154-ae6b2509f48c8ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)**
-
-<br>
-####
-
+方便做参数调测等：**
+      
+![](https://upload-images.jianshu.io/upload_images/9125154-ae6b2509f48c8ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
