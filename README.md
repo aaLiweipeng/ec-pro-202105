@@ -3,6 +3,8 @@ An electronic commerce APP power by Vue3.0
 
 <br>
 
+# 开发流程概要
+
 ## 首页部分
 
 #### 项目初始化
