@@ -8,14 +8,23 @@
         <div class="wrapper__input">
             <input class="wrapper__input__content" placeholder="请输入密码">
         </div>
-        <div class="wrapper__login-button">登   录</div>
+        <div class="wrapper__login-button" @click="handleLogin">登   录</div>
         <div class="wrapper__login-link">立即注册</div>
     </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
-  name: 'Login'
+  name: 'Login',
+  setup () {
+    const router = useRouter()
+    const handleLogin = () => {
+      localStorage.isLogin = true
+      router.push({ name: 'Home' })
+    }
+    return { handleLogin }
+  }
 }
 </script>
 
