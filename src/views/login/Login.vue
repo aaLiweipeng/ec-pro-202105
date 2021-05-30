@@ -3,13 +3,17 @@
         <img class="wrapper__img"
              src="http://www.dell-lee.com/imgs/vue3/user.png">
         <div class="wrapper__input">
-            <input class="wrapper__input__content" placeholder="请输入手机号">
+            <input
+              class="wrapper__input__content"
+              placeholder="请输入手机号"
+              v-model="data.username">
         </div>
         <div class="wrapper__input">
             <input
                 class="wrapper__input__content"
                 placeholder="请输入密码"
-                type="password">
+                type="password"
+                v-model="data.password">
         </div>
         <div class="wrapper__login-button" @click="handleLogin">登   录</div>
         <div class="wrapper__login-link" @click="clickToRegister">立即注册</div>
@@ -18,18 +22,61 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
+import { post } from '../../utils/request'
+
 export default {
   name: 'Login',
   setup () {
+    const data = reactive({
+      username: '',
+      password: ''
+    })
     const router = useRouter()
-    const handleLogin = () => {
-      localStorage.logined = true
-      router.push({ name: 'Home' })
+    const handleLogin = async () => {
+      try {
+        const result = await post(
+          '/api/user/login', {
+            username: data.username,
+            password: data.password
+          })
+
+        console.log('result --- ', result)
+
+        // if (result?.data?.error === 0) {
+        if (result?.error === 0) {
+          alert('请求成功')
+          localStorage.logined = true
+          router.push({ name: 'Home' })
+        } else {
+        // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
+          alert('登录失败')
+        }
+      } catch (e) {
+        // API写错、网络错误等情况
+        // alert('请求失败')
+      }
+
+    //   axios({
+    //     method: 'post',
+    //     url: 'https://www.fastmock.site/mock/607e07af5701f2ae39a9553a6aab8bc7/heheda/api/user/login',
+    //     data: {
+    //       username: data.username,
+    //       password: data.password
+    //     }
+    //   }).then(() => {
+    //     alert('请求成功')
+    //     localStorage.logined = true
+    //     router.push({ name: 'Home' })
+    //   }).catch(() => {
+    //     alert('请求失败')
+    //   })
     }
+
     const clickToRegister = () => {
       router.push({ name: 'Register' })
     }
-    return { handleLogin, clickToRegister }
+    return { handleLogin, clickToRegister, data }
   }
 }
 </script>
