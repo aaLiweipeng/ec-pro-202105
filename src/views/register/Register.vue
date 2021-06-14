@@ -3,35 +3,109 @@
         <img class="wrapper__img"
              src="http://www.dell-lee.com/imgs/vue3/user.png">
         <div class="wrapper__input">
-            <input class="wrapper__input__content" placeholder="请输入手机号">
+            <input
+                class="wrapper__input__content"
+                placeholder="请输入手机号"
+                v-model="username">
         </div>
         <div class="wrapper__input">
             <input
                 class="wrapper__input__content"
                 placeholder="请输入密码"
-                type="password">
+                type="password"
+                v-model="password">
         </div>
         <div class="wrapper__input">
             <input
                 class="wrapper__input__content"
                 placeholder="确认密码"
-                type="password">
+                type="password"
+                v-model="ensurement">
         </div>
-        <div class="wrapper__register-button">注    册</div>
+        <div class="wrapper__register-button" @click="handRegister">注    册</div>
         <div class="wrapper__register-link" @click="handleLoginClick">已有账号前往登录</div>
+
+        <Toast v-if="show" :message="toastMessage"/>
     </div>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
+import { reactive, toRefs } from 'vue'
+import { post } from '../../utils/request'
+import Toast, { useToastEffect } from '../../components/Toast'
+
+// 注册相关逻辑，参数接一个 showToast函数对象来用
+const useRegisterEffect = (showToast) => {
+  const router = useRouter()
+  const data = reactive({
+    username: '',
+    password: '',
+    ensurement: ''
+  })
+  // 把数据进一步 解构拆分
+  const { username, password, ensurement } = toRefs(data)
+  // 注册按钮点击事件
+  const handRegister = async () => {
+    try {
+      const { username: dataUserName, password: dataPassword, ensurement: dataEnsurement } = data
+      if (dataUserName === '' || dataPassword === '' || dataEnsurement === '') {
+        showToast('输入内容不可为空')
+        return
+      }
+      const result = await post(
+        '/api/user/register', {
+          username: dataUserName,
+          password: dataPassword,
+          ensurement: dataEnsurement
+        })
+
+      console.log('result --- ', result)
+
+      if (result?.error === 0) {
+        alert('注册请求成功')
+        router.push({ name: 'Login' })
+      } else {
+        // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
+        showToast('注册失败')
+      }
+    } catch (e) {
+      // API写错、网络错误等情况
+      showToast('请求失败')
+    }
+  }
+  return { username, password, ensurement, handRegister }
+}
+
+// 跳转登录页业务模块
+const useLoginEffect = () => {
+  const router = useRouter()
+  const handleLoginClick = () => {
+    router.push({ name: 'Login' })
+  }
+  return { handleLoginClick }
+}
+
 export default {
   name: 'Register',
+  components: { Toast },
   setup () {
-    const router = useRouter()
-    const handleLoginClick = () => {
-      router.push({ name: 'Login' })
+    // Toast模块
+    const { show, toastMessage, showToast } = useToastEffect()
+    // 注册业务模块
+    const { username, password, ensurement, handRegister } = useRegisterEffect(showToast)
+    // 跳转登录页模块
+    const { handleLoginClick } = useLoginEffect()
+
+    return {
+      username,
+      password,
+      ensurement,
+      show,
+      toastMessage,
+      handRegister,
+      handleLoginClick
     }
-    return { handleLoginClick }
   }
 }
 </script>

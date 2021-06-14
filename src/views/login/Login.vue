@@ -6,56 +6,68 @@
             <input
               class="wrapper__input__content"
               placeholder="请输入手机号"
-              v-model="data.username">
+              v-model="username">
         </div>
         <div class="wrapper__input">
             <input
                 class="wrapper__input__content"
                 placeholder="请输入密码"
                 type="password"
-                v-model="data.password">
+                v-model="password"
+                autocomplete="new-password">
         </div>
         <div class="wrapper__login-button" @click="handleLogin">登   录</div>
         <div class="wrapper__login-link" @click="clickToRegister">立即注册</div>
+        <Toast v-if="show" :message="toastMessage"/>
     </div>
 </template>
 
 <script>
+import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { reactive } from 'vue'
 import { post } from '../../utils/request'
+import Toast, { useToastEffect } from '../../components/Toast'
 
-export default {
-  name: 'Login',
-  setup () {
-    const data = reactive({
-      username: '',
-      password: ''
-    })
-    const router = useRouter()
-    const handleLogin = async () => {
-      try {
-        const result = await post(
-          '/api/user/login', {
-            username: data.username,
-            password: data.password
-          })
-
-        console.log('result --- ', result)
-
-        // if (result?.data?.error === 0) {
-        if (result?.error === 0) {
-          alert('请求成功')
-          localStorage.logined = true
-          router.push({ name: 'Home' })
-        } else {
-        // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
-          alert('登录失败')
-        }
-      } catch (e) {
-        // API写错、网络错误等情况
-        // alert('请求失败')
+// 登录相关逻辑
+const useLoginEffect = (showToast) => {
+  const router = useRouter()
+  const data = reactive({
+    username: '',
+    password: ''
+  })
+  // 把数据进一步 解构拆分
+  const { username, password } = toRefs(data)
+  // 登录按钮点击事件
+  const handleLogin = async () => {
+    try {
+      const { username: dataUserName, password: dataPassword } = data
+      if (dataUserName === '' || dataPassword === '') {
+        showToast('输入内容不可为空')
+        return
       }
+      const result = await post(
+        '/api/user/login', {
+          username: data.username,
+          password: data.password
+        })
+
+      console.log('result --- ', result)
+
+      // if (result?.data?.error === 0) {
+      if (result?.error === 0) {
+        // alert('请求成功')
+        showToast('登录请求成功')
+        localStorage.logined = true
+        router.push({ name: 'Home' })
+      } else {
+        // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
+        showToast('登录失败')
+      }
+    } catch (e) {
+      // API写错、网络错误等情况
+      // alert('请求失败')
+      showToast('请求失败')
+    }
 
     //   axios({
     //     method: 'post',
@@ -71,12 +83,31 @@ export default {
     //   }).catch(() => {
     //     alert('请求失败')
     //   })
-    }
+  }
+  return { username, password, handleLogin }
+}
 
-    const clickToRegister = () => {
-      router.push({ name: 'Register' })
-    }
-    return { handleLogin, clickToRegister, data }
+// 跳转注册页业务模块
+const useRegisterEffect = () => {
+  const router = useRouter()
+  const clickToRegister = () => {
+    router.push({ name: 'Register' })
+  }
+  return { clickToRegister }
+}
+
+export default {
+  name: 'Login',
+  components: { Toast },
+  setup () {
+    // Toast模块
+    const { show, toastMessage, showToast } = useToastEffect()
+    // Login模块
+    const { username, password, handleLogin } = useLoginEffect(showToast)
+    // 跳转注册页业务
+    const { clickToRegister } = useRegisterEffect()
+
+    return { handleLogin, clickToRegister, username, password, show, toastMessage }
   }
 }
 </script>
