@@ -8,75 +8,53 @@
     <div
       class='nearby__item'
       v-for="item in nearbyList"
-      :key="item.id">
+      :key="item._id">
       <!-- item 左侧图 -->
       <img
         :src='item.imgUrl'
         class='nearby__item__img'>
       <!-- item 右侧内容 -->
       <div class='nearby__content'>
-        <div class='nearby__content__title'>{{item.title}}</div>
+        <div class='nearby__content__title'>{{item.name}}</div>
         <div class='nearby__content__tags'>
-          <span
+          <span class="nearby__content__tag">月售：{{item.sales}}</span>
+          <span class="nearby__content__tag">起送：{{item.expressLimit}}</span>
+          <span class="nearby__content__tag">基础运费：{{item.expressPrice}}</span>
+          <!-- <span
             class='nearby__content_tag'
             v-for="(innerItem, innerIndex) in item.tags"
             :key="innerIndex"
-            >{{innerItem}}</span>
+            >{{innerItem}}</span> -->
         </div>
-        <p class='nearby__content__highlight'>{{item.desc}}</p>
+        <p class='nearby__content__highlight'>{{item.slogan}}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+import { get } from '../../utils/request'
+
+// 推荐热门店铺列表 数据 与 UI控制模块
+const useNearbyListEffect = () => {
+  const nearbyList = ref([])
+  const getNearbyList = async () => {
+    const result = await get('/api/shop/hot-list')
+    if (result?.errno === 0 && result?.data?.length) {
+      nearbyList.value = result.data
+    }
+  }
+  return { nearbyList, getNearbyList }
+}
+
 export default {
   name: 'Nearby',
   setup () {
-    const nearbyList = [
-      {
-        id: 1,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      },
-      {
-        id: 2,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      },
-      {
-        id: 3,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      },
-      {
-        id: 4,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      },
-      {
-        id: 5,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      },
-      {
-        id: 6,
-        imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-        title: '沃尔玛',
-        tags: ['月售6666', '月售6666', '月售6666'],
-        desc: '满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5满60减掉5.5'
-      }
-    ]
+    // 推荐热门店铺列表 数据 与 UI控制模块
+    const { nearbyList, getNearbyList } = useNearbyListEffect()
+    getNearbyList()
+
     return { nearbyList }
   }
 }
