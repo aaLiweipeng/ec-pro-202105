@@ -1,13 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/home/Home'
-import Login from '../views/login/Login'
-import Register from '../views/register/Register'
+// import Home from '../views/home/Home'
+// import Login from '../views/login/Login'
+// import Shop from '../views/shop/Shop'
+// import Register from '../views/register/Register'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import(/* webpackChunkName: "home666" */ '../views/home/Home.vue')
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    component: () => import(/* webpackChunkName: "shop666" */ '../views/shop/Shop.vue')
   },
   {
     path: '/register',
@@ -16,7 +22,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    component: Register,
+    component: () => import(/* webpackChunkName: "register666" */ '../views/register/Register.vue'),
     beforeEnter (to, from, next) {
       const { logined } = localStorage
       logined ? next({ name: 'Home' }) : next()
@@ -29,7 +35,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    component: Login,
+    component: () => import(/* webpackChunkName: "login666" */ '../views/login/Login.vue'),
     beforeEnter (to, from, next) {
       const { logined } = localStorage
       logined ? next({ name: 'Home' }) : next()

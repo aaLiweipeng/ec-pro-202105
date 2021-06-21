@@ -141,8 +141,8 @@ export default {
                 line-height: .48rem;
                 border: none;
                 outline: none;
-                width: 100%;
                 background: none;//各种不必要的元素去掉 -- none
+                width: 100%;
                 font-size: .16rem;//用户输入的字体颜色
                 // color: rgba(0,0,0,0.50);//没有特殊要求，没有背景要展示的情况下，可以不要透明度，简约代码
                 color: $content-notice-fontcolor;
