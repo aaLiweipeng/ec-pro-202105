@@ -86,7 +86,7 @@ export default {
 .search {
   margin-bottom: 0.12rem; //与 banner间距
   line-height: 0.32rem; //组件高
-  background: #f5f5f5; //背景颜色
+  background: $search-bgColor; //背景颜色
   color: #b7b7b7; //文字颜色
   border-radius: 0.16rem; //圆角
   font-size: 0.14rem; //文字大小

@@ -10,8 +10,10 @@ export const get = (url, params = {}) => {
     instance
       .get(url, { params })
       .then((response) => {
+        console.log('请求成功，返回数据 === ')
         resolve(response.data)
       }, err => {
+        console.log('请求失败 === ')
         reject(err)
       })
   })

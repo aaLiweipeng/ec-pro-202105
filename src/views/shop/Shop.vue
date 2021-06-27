@@ -19,29 +19,48 @@
 </template>
 
 <script>
+// import { reactive } from 'vue'
+import { reactive, toRefs } from 'vue'
+import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+
+// 商店数据加载 模块
+const userShopInfoEffect = () => {
+  const route = useRoute()
+  const data = reactive({ item: {} })
+  const getItemData = async () => {
+    const result = await get(`/api/shop/${route.params.id}`)
+    if (result?.errno === 0 && result?.data) {
+      data.item = result.data
+    }
+    console.log('result --- \n', result)
+  }
+  const { item } = toRefs(data)
+  return { item, getItemData }
+}
+
+// 返回键逻辑处理 模块
+const useBackRouterEffect = () => {
+  const router = useRouter()
+  const handleBackClick = () => {
+    router.back()
+  }
+  return { handleBackClick }
+}
 
 export default {
   name: 'Shop',
   components: { ShopInfo },
 
   setup () {
-    const router = useRouter()
+    // 商店数据加载模块
+    const { item, getItemData } = userShopInfoEffect()
+    // 此函数调用之后，数据就都注入到data中了
+    getItemData()
 
-    const item = {
-      _id: '1',
-      name: '沃尔玛',
-      imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-      sales: 66666,
-      expressLimit: 0,
-      expressPrice: 8.8,
-      slogan: 'VIP尊享满89元减4元运费券'
-    }
-
-    const handleBackClick = () => {
-      router.back()
-    }
+    // 返回键逻辑处理
+    const { handleBackClick } = useBackRouterEffect()
 
     return { item, handleBackClick }
   }
@@ -49,17 +68,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/viriables.scss';
+
 .wrapper {
     padding: 0 0.18rem;
 }
 .search {
   display: flex;
-  margin: .2rem 0 .16rem 0;
+  margin: .14rem 0 .04rem 0;
   line-height: .32rem;//注意样式会继承父样式
   &__back {
     width: .3rem;
     font-size: .20rem;
-    color: #b6b6b6;
+    color: $search-fontColor;
 
     //细节调控--垂直居中
     display: table-cell;
@@ -69,12 +90,12 @@ export default {
   &__content {
     display: flex;
     flex: 1;
-    background: #f5f5f5;
+    background: $search-bgColor;
     border-radius: .16rem;
     &__icon {
       width: .44rem; //32 left margin + 32 icon width + 16 right margin
       text-align: center;
-      color: #b6b6b6;
+      color: $search-fontColor;
     }
     &__input {
       display: block;
@@ -84,9 +105,9 @@ export default {
       outline: none;
       background: none;
       font-size: .14rem;
-      color: #333;
+      color: $content-fontcolor;
       &::placeholder {
-        color: #333;
+        color: $content-fontcolor;
       }
     }
   }
