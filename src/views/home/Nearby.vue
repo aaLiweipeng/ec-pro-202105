@@ -28,6 +28,7 @@ const useNearbyListEffect = () => {
     const result = await get('/api/shop/hot-list')
     if (result?.errno === 0 && result?.data?.length) {
       nearbyList.value = result.data
+      console.log('nearbyList.value --- ', nearbyList.value)
     }
   }
   return { nearbyList, getNearbyList }

@@ -15,6 +15,7 @@
         </div>
       </div>
         <ShopInfo :item="item" :showBorder = "false"/>
+        <Content />
     </div>
 </template>
 
@@ -24,11 +25,15 @@ import { reactive, toRefs } from 'vue'
 import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo'
 import { useRouter, useRoute } from 'vue-router'
+import Content from './Content'
 
 // 商店数据加载 模块
 const userShopInfoEffect = () => {
   const route = useRoute()
-  const data = reactive({ item: {} })
+  const data = reactive({
+    // 在获取数据之前，可以先填写默认数据
+    item: { imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png' }
+  })
   const getItemData = async () => {
     const result = await get(`/api/shop/${route.params.id}`)
     if (result?.errno === 0 && result?.data) {
@@ -51,7 +56,7 @@ const useBackRouterEffect = () => {
 
 export default {
   name: 'Shop',
-  components: { ShopInfo },
+  components: { ShopInfo, Content },
 
   setup () {
     // 商店数据加载模块
