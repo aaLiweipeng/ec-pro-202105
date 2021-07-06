@@ -155,10 +155,10 @@ export default {
         &__register-button {
             margin: .32rem .4rem .16rem .4rem;//上撑图标 下撑文案 左右间隔
             line-height: .48rem;
-            background: #0091ff;
+            background: $bgColor-btn-blue;
             box-shadow: 0 .04rem .08rem 0 rgba(0,145,255,0.32);//阴影
             border-radius: .04rem;//四角弧度
-            color: #fff;
+            color: $bgColor-white;
             font-size: .16rem;
             text-align: center;//内容字体居中
         }
