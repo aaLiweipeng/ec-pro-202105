@@ -16,6 +16,7 @@
       </div>
         <ShopInfo :item="item" :showBorder = "false"/>
         <Content />
+        <Cart />
     </div>
 </template>
 
@@ -26,6 +27,7 @@ import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo'
 import { useRouter, useRoute } from 'vue-router'
 import Content from './Content'
+import Cart from './Cart'
 
 // 商店数据加载 模块
 const userShopInfoEffect = () => {
@@ -56,7 +58,7 @@ const useBackRouterEffect = () => {
 
 export default {
   name: 'Shop',
-  components: { ShopInfo, Content },
+  components: { ShopInfo, Content, Cart },
 
   setup () {
     // 商店数据加载模块

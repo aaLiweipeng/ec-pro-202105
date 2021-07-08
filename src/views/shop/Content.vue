@@ -19,7 +19,7 @@
               class="product__item"
               v-for="item in list"
               :key="item._id">
-                <img class="product__item__img" src="http://www.dell-lee.com/imgs/vue3/near.png" />
+                <img class="product__item__img" :src="item.imgUrl" />
                 <div class="product__item__detail">
                     <h4 class="product__item__title">{{item.name}}</h4>
 
@@ -176,7 +176,7 @@ export default {
             margin: 0;//覆盖原本p标签的margin
             // line-height: .2rem;
             font-size: .14rem;
-            color: #e93e3b;
+            color: $red-hightlight-fontColor;
         }
         // yen 限定 货币符样式
         &__yen {
