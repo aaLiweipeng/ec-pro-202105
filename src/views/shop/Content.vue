@@ -38,8 +38,10 @@
                 <!-- 产品加减键 -->
                 <div class="product__number">
                     <span class="product__number__minus">-</span>
-                    0
-                    <span class="product__number__plus">+</span>
+                    {{cartList?.[shopId]?.[item._id]?.count || 0}}
+                    <span
+                      class="product__number__plus"
+                      @click="() => {addItemToCart(shopId, item._id, item)}">+</span>
                 </div>
             </div>
         </div>
@@ -48,6 +50,7 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { get } from '../../utils/request'
 
@@ -71,9 +74,7 @@ const useTabEffect = () => {
 }
 
 // 产品列表数据 处理模块
-const useCurrentListEffect = (currentTab) => {
-  const route = useRoute()
-  const shopId = route.params.id
+const useCurrentListEffect = (currentTab, shopId) => {
   // 用于存储 请求结果 数据
   const content = reactive({ list: [] })
 
@@ -94,13 +95,30 @@ const useCurrentListEffect = (currentTab) => {
   return { list }
 }
 
+// 使用VueX数据, 【添加数据】到VueX 模块
+const useCartEffect = () => {
+  const store = useStore()
+  const { cartList } = toRefs(store.state)
+  const addItemToCart = (shopId, productId, productInfo) => {
+    // 触发事件，向VueX添加数据
+    store.commit('addItemToCart', {
+      shopId, productId, productInfo
+    })
+  }
+
+  return { cartList, addItemToCart }
+}
+
 export default {
   name: 'Content',
   setup () {
-    const { currentTab, handleTabClick } = useTabEffect()
-    const { list } = useCurrentListEffect(currentTab)
+    const route = useRoute()
+    const shopId = route.params.id // 从网页URL获取id
 
-    return { categories, currentTab, list, handleTabClick }
+    const { currentTab, handleTabClick } = useTabEffect()
+    const { list } = useCurrentListEffect(currentTab, shopId)
+    const { cartList, addItemToCart } = useCartEffect()
+    return { categories, currentTab, list, handleTabClick, cartList, addItemToCart, shopId }
   }
 }
 </script>
