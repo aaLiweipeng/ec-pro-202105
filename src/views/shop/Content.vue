@@ -37,11 +37,12 @@
 
                 <!-- 产品加减键 -->
                 <div class="product__number">
-                    <span class="product__number__minus">-</span>
+                    <span class="product__number__minus"
+                    @click="() => {changeCartItemInfo(shopId, item._id, item, -1)}">-</span>
                     {{cartList?.[shopId]?.[item._id]?.count || 0}}
                     <span
                       class="product__number__plus"
-                      @click="() => {addItemToCart(shopId, item._id, item)}">+</span>
+                      @click="() => {changeCartItemInfo(shopId, item._id, item, 1)}">+</span>
                 </div>
             </div>
         </div>
@@ -95,18 +96,18 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list }
 }
 
-// 使用VueX数据, 【添加数据】到VueX 模块
+// 使用VueX数据, 【添加产品数据】到VueX 模块
 const useCartEffect = () => {
   const store = useStore()
   const { cartList } = toRefs(store.state)
-  const addItemToCart = (shopId, productId, productInfo) => {
+  const changeCartItemInfo = (shopId, productId, productInfo, num) => {
     // 触发事件，向VueX添加数据
     store.commit('addItemToCart', {
-      shopId, productId, productInfo
+      shopId, productId, productInfo, num
     })
   }
 
-  return { cartList, addItemToCart }
+  return { cartList, changeCartItemInfo }
 }
 
 export default {
@@ -117,8 +118,8 @@ export default {
 
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, addItemToCart } = useCartEffect()
-    return { categories, currentTab, list, handleTabClick, cartList, addItemToCart, shopId }
+    const { cartList, changeCartItemInfo } = useCartEffect()
+    return { categories, currentTab, list, handleTabClick, cartList, changeCartItemInfo, shopId }
   }
 }
 </script>

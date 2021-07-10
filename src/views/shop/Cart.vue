@@ -8,11 +8,11 @@
                   class="check__icon__img"
                 />
                 <!-- 购物车小红点 -->
-                <div class="check__icon__tag">1</div>
+                <div class="check__icon__tag">{{total}}</div>
             </div>
             <!-- 总计内容 -->
             <div class="check__info">
-                总计：<span class="check__info__price">&yen;66688866</span>
+                总计：<span class="check__info__price">&yen; {{totalPrice}}</span>
             </div>
             <div class="check__btn">去结算</div>
         </div>
@@ -20,8 +20,51 @@
 </template>
 
 <script>
-export default {
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
+// 页面数量、价格 总计 相关逻辑
+const useCartEffect = () => {
+  const store = useStore()
+  const route = useRoute()
+  const shopId = route.params.id
+  const cartList = store.state.cartList
+  const total = computed(() => {
+    const productList = cartList[shopId]
+    let count = 0
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i]
+        count += product.count
+      }
+    }
+    console.log('cartList total --- ', totalPrice)
+    return count
+  })
+
+  const totalPrice = computed(() => {
+    const productList = cartList[shopId]
+    let totalPrice = 0
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i]
+        totalPrice += (product.count * product.price)
+      }
+    }
+    console.log('cartList totalPrice --- ', totalPrice)
+    return totalPrice.toFixed(2)
+  })
+
+  return { total, totalPrice }
+}
+
+export default {
+  name: 'Cart',
+  setup () {
+    const { total, totalPrice } = useCartEffect()
+    return { total, totalPrice }
+  }
 }
 </script>
 
@@ -50,17 +93,19 @@ export default {
         }
         &__tag {
             position: absolute;
-            right: .2rem;
+            left: .46rem;
             top: .04rem;
-            width: .2rem;
+            padding: 0 .015rem;
+            min-width: .2rem;
             height: .2rem;
             line-height: .2rem;
             background-color: $red-hightlight-fontColor;
-            border-radius: 50%;
+            border-radius: .1rem;
             font-size: .12rem;
             text-align: center;
             color: $bgColor-white;
             transform: scale(.5);
+            transform-origin: left center;
         }
     }
     &__info {

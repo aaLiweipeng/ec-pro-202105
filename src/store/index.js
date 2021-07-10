@@ -33,15 +33,19 @@ export default createStore({
       let product = shopInfo[productId]
       // 判空处理
       if (!product) {
-        // 如果是第一次加这个产品数据，则把入参详情加入state 设置 count为 0
+        // 如果是第一次加这个产品数据，则把 入参产品详情 加入state 设置 count为 0
         product = productInfo
         product.count = 0
       }
-      product.count += 1
+      product.count = product.count + payload.num
+      if (product.count < 0) { product.count = 0 } // 反之负数
       shopInfo[productId] = product
       state.cartList[shopId] = shopInfo
-      // 整个思路就是把 入参产品详情 加入state【如果state里面没有对应数据的话】，
-      // 再给state 对应产品数据 递增count
+      // 整个思路就是
+      // 根据 入参id，一步步取 商家产品列表、取产品,
+      // 商家产品列表为空，则初始空对象， 产品取得为空，则 把 入参 产品详情 加给state取出的这个 产品空对象，
+      // 最后 给state 对应的产品 的数据 递增count，
+      // 把产品设置回商家所取列表，把 商家设置回 state
 
       console.log('store/index.js mutations addItemToCart --- ',
         '\nshopId --- ', shopId,
