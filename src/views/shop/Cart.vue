@@ -2,6 +2,9 @@
     <div class="cart">
         <!-- 购物车 产品内容列表 模块 -->
         <div class="product">
+            <div class="product__header">
+                11
+            </div>
             <!-- 一个产品item -->
             <!-- 占位符 没有对应UI显示，但是可以包裹UI，设置UI控制逻辑 -->
             <!-- 这是控制 商品item.count为0时，不显示这个购物车Item -->
@@ -11,6 +14,11 @@
                 <div
                   class="product__item"
                   v-if="item?.count > 0">
+                    <div class="product__item__checked iconfont"
+                        v-html="item.check ? '&#xe652;':'&#xe66c;'"
+                        @click="() => changeCartItemChecked(shopId, item._id)"
+                    />
+
                     <img class="product__item__img" :src="item.imgUrl" />
                     <div class="product__item__detail">
                         <h4 class="product__item__title">{{item.name}}</h4>
@@ -37,6 +45,7 @@
             </template>
         </div>
 
+        <!-- 统计模块 -->
         <div class="check">
             <div class="check__icon">
                 <!-- 购物车图标 -->
@@ -64,6 +73,8 @@ import { useCommonCartEffect } from './commonCartEffect'
 
 // 页面数量、价格 总计 相关逻辑
 const useCartEffect = (shopId) => {
+  const { changeCartItemInfo } = useCommonCartEffect()
+
   const store = useStore()
 
   // 从state 取出缓存的 购物车数据
@@ -90,12 +101,20 @@ const useCartEffect = (shopId) => {
     if (productList) {
       for (const i in productList) {
         const product = productList[i]
-        totalPrice += (product.count * product.price)
+        // 选中的才加入总价
+        if (product.check) {
+          totalPrice += (product.count * product.price)
+        }
       }
     }
     console.log('cartList totalPrice --- ', totalPrice)
     return totalPrice.toFixed(2)
   })
+
+  // 更改 购物车内容Item的 选中状态==
+  const changeCartItemChecked = (shopId, productId) => {
+    store.commit('changeCartItemChecked', { shopId, productId })
+  }
 
   // 从state 取出缓存的 购物车数据 商品列表
   const cartProductList = computed(() => {
@@ -104,7 +123,7 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
-  return { total, totalPrice, cartProductList }
+  return { total, totalPrice, cartProductList, changeCartItemInfo, changeCartItemChecked }
 }
 
 export default {
@@ -113,9 +132,8 @@ export default {
     const route = useRoute()
     const shopId = route.params.id
 
-    const { changeCartItemInfo } = useCommonCartEffect()
-    const { total, totalPrice, cartProductList } = useCartEffect(shopId)
-    return { total, totalPrice, cartProductList, shopId, changeCartItemInfo }
+    const { total, totalPrice, cartProductList, changeCartItemInfo, changeCartItemChecked } = useCartEffect(shopId)
+    return { total, totalPrice, cartProductList, shopId, changeCartItemInfo, changeCartItemChecked }
   }
 }
 </script>
@@ -124,6 +142,7 @@ export default {
 @import '../../style/viriables';
 @import "../../style/mixins.scss";
 
+// 最外层框架样式
 .cart {
     position: absolute;
     left: 0;
@@ -142,6 +161,12 @@ export default {
         padding: .12rem 0;
         margin: 0 0.16rem;
         border-bottom: .01rem solid $content-bgColor;
+        &__checked {
+            line-height: .5rem;
+            margin-right: .15rem;
+            color:#0091ff;
+            font-size: .2rem;
+        }
         &__detail {
             overflow: hidden;
         }
@@ -211,6 +236,8 @@ export default {
         }
     }
 }
+
+// 统计模块
 .check {
     display: flex;
     height: .49rem;

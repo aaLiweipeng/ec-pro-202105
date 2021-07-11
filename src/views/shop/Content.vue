@@ -76,6 +76,8 @@ const useTabEffect = () => {
 
 // 产品列表数据 处理模块
 const useCurrentListEffect = (currentTab, shopId) => {
+  const { cartList, changeCartItemInfo } = useCommonCartEffect()
+
   // 用于存储 请求结果 数据
   const content = reactive({ list: [] })
 
@@ -93,7 +95,7 @@ const useCurrentListEffect = (currentTab, shopId) => {
   watchEffect(() => { getContentData() })
 
   const { list } = toRefs(content)
-  return { list }
+  return { list, cartList, changeCartItemInfo }
 }
 
 export default {
@@ -103,8 +105,7 @@ export default {
     const shopId = route.params.id // 从网页URL获取id
 
     const { currentTab, handleTabClick } = useTabEffect()
-    const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, changeCartItemInfo } = useCommonCartEffect()
+    const { list, cartList, changeCartItemInfo } = useCurrentListEffect(currentTab, shopId)
     return { categories, currentTab, list, handleTabClick, cartList, changeCartItemInfo, shopId }
   }
 }

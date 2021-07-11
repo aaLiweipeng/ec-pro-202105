@@ -38,7 +38,8 @@ export default createStore({
         product.count = 0
       }
       product.count = product.count + payload.num
-      if (product.count < 0) { product.count = 0 } // 反之负数
+      if (payload.num > 0) { product.check = true } // 一个item如果被添加，默认置为true
+      if (product.count < 0) { product.count = 0 } // 防止负数
       shopInfo[productId] = product
       state.cartList[shopId] = shopInfo
       // 整个思路就是
@@ -55,6 +56,14 @@ export default createStore({
         '\nstate.cartList[shopId] --- ', state.cartList[shopId],
         '\nstate.cartList[shopId][productId] --- ', state.cartList[shopId][productId],
         '\nstate.cartList[shopId][productId].count --- ', state.cartList[shopId][productId].count)
+    },
+
+    // 更改 购物车内容Item的 选中状态
+    changeCartItemChecked (state, payload) {
+      const { shopId, productId } = payload
+      // 因为这里必定是UI存在 才能点击跳转到此，UI存在则其双向绑定数据必定存在
+      const product = state.cartList[shopId][productId]
+      product.check = !product.check
     }
   },
   actions: {
