@@ -51,9 +51,9 @@
 
 <script>
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { get } from '../../utils/request'
+import { useCommonCartEffect } from './commonCartEffect'
 
 const categories = [
   { name: '全部商品', tab: 'all' },
@@ -96,20 +96,6 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list }
 }
 
-// 使用VueX数据, 【添加产品数据】到VueX 模块
-const useCartEffect = () => {
-  const store = useStore()
-  const { cartList } = toRefs(store.state)
-  const changeCartItemInfo = (shopId, productId, productInfo, num) => {
-    // 触发事件，向VueX添加数据
-    store.commit('addItemToCart', {
-      shopId, productId, productInfo, num
-    })
-  }
-
-  return { cartList, changeCartItemInfo }
-}
-
 export default {
   name: 'Content',
   setup () {
@@ -118,7 +104,7 @@ export default {
 
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, changeCartItemInfo } = useCartEffect()
+    const { cartList, changeCartItemInfo } = useCommonCartEffect()
     return { categories, currentTab, list, handleTabClick, cartList, changeCartItemInfo, shopId }
   }
 }
