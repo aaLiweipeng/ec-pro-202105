@@ -1,9 +1,24 @@
 <template>
+    <div class="mask" v-if="showCart" />
     <div class="cart">
         <!-- 购物车 产品内容列表 模块 -->
-        <div class="product">
+        <div class="product" v-if="showCart">
             <div class="product__header">
-                11
+                <div
+                  class="product__header__all"
+                  @click="() => setCartItemsChecked(shopId)">
+
+                    <span class="product__header__icon iconfont"
+                        v-html="allChecked ? '&#xe652;':'&#xe66c;'">
+                    </span>
+                    全选
+                </div>
+
+                <div
+                  class="product__header__clear"
+                  @click="() => cleanCartProducts(shopId)">
+                    清空购物车
+                </div>
             </div>
             <!-- 一个产品item -->
             <!-- 占位符 没有对应UI显示，但是可以包裹UI，设置UI控制逻辑 -->
@@ -35,11 +50,11 @@
                     <!-- 产品加减键 -->
                     <div class="product__number">
                         <span class="product__number__minus"
-                        @click="() => {changeCartItemInfo(shopId, item._id, item, -1)}">-</span>
+                          @click="() => {changeCartItemInfo(shopId, item._id, item, -1)}">-</span>
                         {{item?.count || 0}}
                         <span
-                        class="product__number__plus"
-                        @click="() => {changeCartItemInfo(shopId, item._id, item, 1)}">+</span>
+                          class="product__number__plus"
+                          @click="() => {changeCartItemInfo(shopId, item._id, item, 1)}">+</span>
                     </div>
                 </div>
             </template>
@@ -52,6 +67,7 @@
                 <img
                   src="http://www.dell-lee.com/imgs/vue3/basket.png"
                   class="check__icon__img"
+                  @click="handleCartShowChange"
                 />
                 <!-- 购物车小红点 -->
                 <div class="check__icon__tag">{{total}}</div>
@@ -66,7 +82,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useCommonCartEffect } from './commonCartEffect'
@@ -111,6 +127,22 @@ const useCartEffect = (shopId) => {
     return totalPrice.toFixed(2)
   })
 
+  // 判定当前数据情况 是否需要点亮 全选按钮
+  const allChecked = computed(() => {
+    const productList = cartList[shopId]
+    let needAllChecked = true
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i]
+        // 这个产品有在购物车中【count > 0】 且 ，没被选中
+        if (product.count > 0 && !product.check) {
+          needAllChecked = false
+        }
+      }
+    }
+    return needAllChecked
+  })
+
   // 更改 购物车内容Item的 选中状态==
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
@@ -123,7 +155,26 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
-  return { total, totalPrice, cartProductList, changeCartItemInfo, changeCartItemChecked }
+  const cleanCartProducts = (shopId) => {
+    // shopId 用来 删除 指定商家的 整个产品列表
+    store.commit('cleanCartProducts', { shopId })
+  }
+
+  // 点击全选按钮
+  const setCartItemsChecked = (shopId) => {
+    store.commit('setCartItemsChecked', { shopId })
+  }
+
+  return {
+    total,
+    totalPrice,
+    cartProductList,
+    changeCartItemInfo,
+    changeCartItemChecked,
+    cleanCartProducts,
+    setCartItemsChecked,
+    allChecked
+  }
 }
 
 export default {
@@ -131,9 +182,33 @@ export default {
   setup () {
     const route = useRoute()
     const shopId = route.params.id
+    const showCart = ref(false) // 控制购物车内产品列表的展示
+    const handleCartShowChange = () => {
+      showCart.value = !showCart.value
+    }
 
-    const { total, totalPrice, cartProductList, changeCartItemInfo, changeCartItemChecked } = useCartEffect(shopId)
-    return { total, totalPrice, cartProductList, shopId, changeCartItemInfo, changeCartItemChecked }
+    const {
+      total, totalPrice, cartProductList,
+      changeCartItemInfo,
+      changeCartItemChecked,
+      cleanCartProducts,
+      setCartItemsChecked,
+      allChecked
+    } = useCartEffect(shopId)
+
+    return {
+      showCart,
+      total,
+      totalPrice,
+      cartProductList,
+      shopId,
+      changeCartItemInfo,
+      changeCartItemChecked,
+      cleanCartProducts,
+      setCartItemsChecked,
+      handleCartShowChange,
+      allChecked
+    }
   }
 }
 </script>
@@ -142,18 +217,58 @@ export default {
 @import '../../style/viriables';
 @import "../../style/mixins.scss";
 
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+}
 // 最外层框架样式
 .cart {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 2;
+    background: #fff;
 }
 // 购物车 产品内容列表 模块
 .product {
     overflow-y: scroll;
     flex: 1;
     background: #fff;
+
+    // 头部行
+    &__header {
+        display: flex;
+        line-height: .52rem;
+        border-bottom: 1px solid #f1f1f1;
+        font-size: .14rem;
+        color: #333;
+
+        //全选
+        &__all {
+            width: .64rem;
+            margin-left: .18rem;
+            vertical-align: middle;
+        }
+        &__icon {
+            color:#0091ff;
+            font-size: .18rem;
+            vertical-align: middle;
+        }
+
+        // 清空购物车
+        &__clear {
+            flex: 1;
+            margin-right: .16rem;
+            text-align: right;
+        }
+    }
+
     // 整一个产品item的样式
     &__item {
         position: relative;
@@ -161,6 +276,8 @@ export default {
         padding: .12rem 0;
         margin: 0 0.16rem;
         border-bottom: .01rem solid $content-bgColor;
+
+        // 购物车 产品内容列表item 勾选图标
         &__checked {
             line-height: .5rem;
             margin-right: .15rem;

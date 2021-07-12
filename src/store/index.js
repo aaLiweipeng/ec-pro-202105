@@ -64,6 +64,25 @@ export default createStore({
       // 因为这里必定是UI存在 才能点击跳转到此，UI存在则其双向绑定数据必定存在
       const product = state.cartList[shopId][productId]
       product.check = !product.check
+    },
+
+    // 清空购物车
+    cleanCartProducts (state, payload) {
+      const { shopId } = payload
+      state.cartList[shopId] = {}
+    },
+
+    // 全选按钮
+    setCartItemsChecked (state, payload) {
+      const { shopId } = payload
+      const products = state.cartList[shopId]
+      if (products) {
+        // 循环 对应产品列表，全部设置为选中
+        for (const key in products) {
+          const product = products[key]
+          product.check = true
+        }
+      }
     }
   },
   actions: {
