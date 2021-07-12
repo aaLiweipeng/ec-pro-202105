@@ -1,5 +1,8 @@
 <template>
-    <div class="mask" v-if="showCart" />
+    <div
+      class="mask"
+      v-if="showCart"
+      @click="handleCartShowChange" />
     <div class="cart">
         <!-- 购物车 产品内容列表 模块 -->
         <div class="product" v-if="showCart">
@@ -14,10 +17,10 @@
                     全选
                 </div>
 
-                <div
-                  class="product__header__clear"
-                  @click="() => cleanCartProducts(shopId)">
-                    清空购物车
+                <div class="product__header__clear">
+                  <span class="product__header__clear__btn"
+                    @click="() => cleanCartProducts(shopId)"
+                  >清空购物车</span>
                 </div>
             </div>
             <!-- 一个产品item -->
@@ -76,7 +79,11 @@
             <div class="check__info">
                 总计：<span class="check__info__price">&yen; {{totalPrice}}</span>
             </div>
-            <div class="check__btn">去结算</div>
+            <div class="check__btn">
+                <router-link :to="{name: 'Home'}">
+                  去结算
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -177,16 +184,22 @@ const useCartEffect = (shopId) => {
   }
 }
 
+// 购物车内产品列表的展示 控制模块
+const toggleCartEffect = () => {
+  const showCart = ref(false) // 控制购物车内产品列表的展示
+  const handleCartShowChange = () => {
+    showCart.value = !showCart.value
+  }
+
+  return { showCart, handleCartShowChange }
+}
+
 export default {
   name: 'Cart',
   setup () {
     const route = useRoute()
     const shopId = route.params.id
-    const showCart = ref(false) // 控制购物车内产品列表的展示
-    const handleCartShowChange = () => {
-      showCart.value = !showCart.value
-    }
-
+    const { showCart, handleCartShowChange } = toggleCartEffect()
     const {
       total, totalPrice, cartProductList,
       changeCartItemInfo,
@@ -233,21 +246,21 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 2;
-    background: #fff;
+    background: $bgColor-white;
 }
 // 购物车 产品内容列表 模块
 .product {
     overflow-y: scroll;
     flex: 1;
-    background: #fff;
+    background: $bgColor-white;
 
     // 头部行
     &__header {
         display: flex;
         line-height: .52rem;
-        border-bottom: 1px solid #f1f1f1;
+        border-bottom: 1px solid $content-bgColor;
         font-size: .14rem;
-        color: #333;
+        color: $content-fontcolor;
 
         //全选
         &__all {
@@ -256,7 +269,7 @@ export default {
             vertical-align: middle;
         }
         &__icon {
-            color:#0091ff;
+            color:$bgColor-btn-blue;
             font-size: .18rem;
             vertical-align: middle;
         }
@@ -266,6 +279,9 @@ export default {
             flex: 1;
             margin-right: .16rem;
             text-align: right;
+            &__btn {
+              display: inline-block;
+            }
         }
     }
 
@@ -281,7 +297,7 @@ export default {
         &__checked {
             line-height: .5rem;
             margin-right: .15rem;
-            color:#0091ff;
+            color:$bgColor-btn-blue;
             font-size: .2rem;
         }
         &__detail {
@@ -401,6 +417,10 @@ export default {
         text-align: center;
         color: $bgColor-white;
         font-size: .14rem;
+        a {
+          color: $bgColor-white;
+          text-decoration: none;
+        }
     }
 }
 </style>

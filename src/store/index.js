@@ -25,9 +25,9 @@ export default createStore({
       const { shopId/* 商家 */, productId /* 产品 */, productInfo /* 产品详情 */ } = payload
 
       // 拿到state中 对应入参商家id的 产品列表
-      let shopInfo = state.cartList[shopId]
-      // 判空处理
-      if (!shopInfo) { shopInfo = {} }
+      const shopInfo = state.cartList[shopId] || {}
+      // // 判空处理
+      // if (!shopInfo) { shopInfo = {} }
 
       // 根据入参productId 获取 state对应列表中 对应的产品
       let product = shopInfo[productId]
