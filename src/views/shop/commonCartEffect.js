@@ -7,7 +7,7 @@ export const useCommonCartEffect = () => {
   const { cartList } = toRefs(store.state)
   const changeCartItemInfo = (shopId, productId, productInfo, num) => {
     // 触发事件，向VueX添加数据
-    store.commit('addItemToCart', {
+    store.commit('changeCartItemInfo', {
       shopId, productId, productInfo, num
     })
   }

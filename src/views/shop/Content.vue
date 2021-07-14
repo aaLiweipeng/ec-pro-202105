@@ -38,11 +38,11 @@
                 <!-- 产品加减键 -->
                 <div class="product__number">
                     <span class="product__number__minus"
-                      @click="() => {changeCartItemInfo(shopId, item._id, item, -1)}">-</span>
-                      {{cartList?.[shopId]?.[item._id]?.count || 0}}
+                      @click="() => {changeCartItem(shopId, item._id, item, -1, shopName)}">-</span>
+                      {{getProductCartCount(cartList, shopId, item._id)}}
                     <span
                       class="product__number__plus"
-                      @click="() => {changeCartItemInfo(shopId, item._id, item, 1)}">+</span>
+                      @click="() => {changeCartItem(shopId, item._id, item, 1, shopName)}">+</span>
                 </div>
             </div>
         </div>
@@ -51,6 +51,7 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { get } from '../../utils/request'
 import { useCommonCartEffect } from './commonCartEffect'
@@ -98,15 +99,36 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list, cartList, changeCartItemInfo }
 }
 
+const useCartEffect = (currentTab, shopId) => {
+  const store = useStore()
+  const { list, cartList, changeCartItemInfo } = useCurrentListEffect(currentTab, shopId)
+
+  // 更新商家店名
+  const changeShopName = (shopId, shopName) => {
+    store.commit('changeShopName', { shopId, shopName })
+  }
+  // 更新点击产品的数据
+  const changeCartItem = (shopId, productId, item, num, shopName) => {
+    changeCartItemInfo(shopId, productId, item, num)
+    changeShopName(shopId, shopName)
+  }
+  const getProductCartCount = (cartList, shopId, productId) => {
+    return cartList?.[shopId]?.productList?.[productId]?.count || 0
+  }
+
+  return { list, cartList, changeCartItem, getProductCartCount }
+}
+
 export default {
   name: 'Content',
+  props: ['shopName'],
   setup () {
     const route = useRoute()
     const shopId = route.params.id // 从网页URL获取id
-
     const { currentTab, handleTabClick } = useTabEffect()
-    const { list, cartList, changeCartItemInfo } = useCurrentListEffect(currentTab, shopId)
-    return { categories, currentTab, list, handleTabClick, cartList, changeCartItemInfo, shopId }
+    const { list, cartList, changeCartItem, getProductCartCount } = useCartEffect(currentTab, shopId)
+
+    return { categories, currentTab, list, handleTabClick, cartList, changeCartItem, getProductCartCount, shopId }
   }
 }
 </script>

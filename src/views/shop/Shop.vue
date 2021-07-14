@@ -15,7 +15,7 @@
         </div>
       </div>
         <ShopInfo :item="item" :showBorder = "false"/>
-        <Content />
+        <Content :shopName="item.name" />
         <Cart />
     </div>
 </template>

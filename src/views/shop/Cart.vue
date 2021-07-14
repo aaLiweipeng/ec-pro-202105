@@ -1,18 +1,18 @@
 <template>
     <div
       class="mask"
-      v-if="showCart"
+      v-if="showCart && cartCalculations.total > 0"
       @click="handleCartShowChange" />
     <div class="cart">
         <!-- 购物车 产品内容列表 模块 -->
-        <div class="product" v-if="showCart">
+        <div class="product" v-if="showCart && cartCalculations.total > 0">
             <div class="product__header">
                 <div
                   class="product__header__all"
                   @click="() => setCartItemsChecked(shopId)">
 
                     <span class="product__header__icon iconfont"
-                        v-html="allChecked ? '&#xe652;':'&#xe66c;'">
+                        v-html="cartCalculations.allChecked ? '&#xe652;':'&#xe66c;'">
                     </span>
                     全选
                 </div>
@@ -73,11 +73,11 @@
                   @click="handleCartShowChange"
                 />
                 <!-- 购物车小红点 -->
-                <div class="check__icon__tag">{{total}}</div>
+                <div class="check__icon__tag">{{cartCalculations.total}}</div>
             </div>
             <!-- 总计内容 -->
             <div class="check__info">
-                总计：<span class="check__info__price">&yen; {{totalPrice}}</span>
+                总计：<span class="check__info__price">&yen; {{cartCalculations.price}}</span>
             </div>
             <div class="check__btn">
                 <router-link :to="{name: 'Home'}">
@@ -103,52 +103,80 @@ const useCartEffect = (shopId) => {
   // 从state 取出缓存的 购物车数据
   const cartList = store.state.cartList
 
-  // 计算 购物车商品 总数
-  const total = computed(() => {
-    const productList = cartList[shopId]
-    let count = 0
+  // 总数、总价、全选按钮判定，三合一
+  // 【因为重复逻辑很多, 都是要获取 并遍历 产品列表，对每个迭代进行处理】
+  const cartCalculations = computed(() => {
+    const productList = cartList[shopId]?.productList
+    const result = { total: 0, price: 0, allChecked: true }
     if (productList) {
       for (const i in productList) {
         const product = productList[i]
-        count += product.count
-      }
-    }
-    console.log('cartList total --- ', totalPrice)
-    return count
-  })
 
-  // 计算 购物车商品 总价
-  const totalPrice = computed(() => {
-    const productList = cartList[shopId]
-    let totalPrice = 0
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
+        // 计算总数
+        result.total += product.count
         // 选中的才加入总价
         if (product.check) {
-          totalPrice += (product.count * product.price)
+          result.price += (product.count * product.price)
         }
-      }
-    }
-    console.log('cartList totalPrice --- ', totalPrice)
-    return totalPrice.toFixed(2)
-  })
-
-  // 判定当前数据情况 是否需要点亮 全选按钮
-  const allChecked = computed(() => {
-    const productList = cartList[shopId]
-    let needAllChecked = true
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
         // 这个产品有在购物车中【count > 0】 且 ，没被选中
         if (product.count > 0 && !product.check) {
-          needAllChecked = false
+          result.allChecked = false
         }
       }
     }
-    return needAllChecked
+    result.price = result.price.toFixed(2)
+    console.log('cartList total --- ', result.total)
+    console.log('cartList totalPrice --- ', result.price)
+
+    return result
   })
+
+  // 计算 购物车商品 总数
+  // const total = computed(() => {
+  //   const productList = cartList[shopId]?.productList
+  //   let count = 0
+  //   if (productList) {
+  //     for (const i in productList) {
+  //       const product = productList[i]
+  //       count += product.count
+  //     }
+  //   }
+  //   console.log('cartList total --- ', count)
+  //   return count
+  // })
+
+  // 计算 购物车商品 总价
+  // const totalPrice = computed(() => {
+  //   const productList = cartList[shopId]?.productList
+  //   let totalPrice = 0
+  //   if (productList) {
+  //     for (const i in productList) {
+  //       const product = productList[i]
+  //       // 选中的才加入总价
+  //       if (product.check) {
+  //         totalPrice += (product.count * product.price)
+  //       }
+  //     }
+  //   }
+  //   console.log('cartList totalPrice --- ', totalPrice)
+  //   return totalPrice.toFixed(2)
+  // })
+
+  // 判定当前数据情况 是否需要点亮 全选按钮
+  // const allChecked = computed(() => {
+  //   const productList = cartList[shopId]?.productList
+  //   let needAllChecked = true
+  //   if (productList) {
+  //     for (const i in productList) {
+  //       const product = productList[i]
+  //       // 这个产品有在购物车中【count > 0】 且 ，没被选中
+  //       if (product.count > 0 && !product.check) {
+  //         needAllChecked = false
+  //       }
+  //     }
+  //   }
+  //   return needAllChecked
+  // })
 
   // 更改 购物车内容Item的 选中状态==
   const changeCartItemChecked = (shopId, productId) => {
@@ -158,7 +186,7 @@ const useCartEffect = (shopId) => {
   // 从state 取出缓存的 购物车数据 商品列表
   const cartProductList = computed(() => {
     // 鲁棒性逻辑，若取不到数据，返回空数组
-    const productList = cartList[shopId] || []
+    const productList = cartList[shopId]?.productList || []
     return productList
   })
 
@@ -173,14 +201,12 @@ const useCartEffect = (shopId) => {
   }
 
   return {
-    total,
-    totalPrice,
+    cartCalculations,
     cartProductList,
     changeCartItemInfo,
     changeCartItemChecked,
     cleanCartProducts,
-    setCartItemsChecked,
-    allChecked
+    setCartItemsChecked
   }
 }
 
@@ -201,26 +227,24 @@ export default {
     const shopId = route.params.id
     const { showCart, handleCartShowChange } = toggleCartEffect()
     const {
-      total, totalPrice, cartProductList,
+      cartCalculations,
+      cartProductList,
       changeCartItemInfo,
       changeCartItemChecked,
       cleanCartProducts,
-      setCartItemsChecked,
-      allChecked
+      setCartItemsChecked
     } = useCartEffect(shopId)
 
     return {
       showCart,
-      total,
-      totalPrice,
+      cartCalculations,
       cartProductList,
       shopId,
       changeCartItemInfo,
       changeCartItemChecked,
       cleanCartProducts,
       setCartItemsChecked,
-      handleCartShowChange,
-      allChecked
+      handleCartShowChange
     }
   }
 }
