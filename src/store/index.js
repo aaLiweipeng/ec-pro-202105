@@ -1,42 +1,57 @@
 import { createStore } from 'vuex'
 
+const setLocalCartList = (state) => {
+  const { cartList } = state
+  const cartListString = JSON.stringify(cartList)
+  localStorage.cartList = cartListString
+}
+
+const getLocalCartList = () => {
+  const tempObject = JSON.parse(localStorage.cartList)
+  console.log('getLocalCartList JSON.parse(localStorage.cartList) ----- ', tempObject)
+
+  return tempObject || JSON.parse('{}')
+}
+
 export default createStore({
   state: {
-    cartList: {
-      // // 第一层是商铺id
-      // shopId: {
-      //   // 第二层是商品id
-      //   // 内容是商品详情 以及 购物数量  content.vue中的 item.id ---》productId
-      //   productId: {
-      //     _id: '1',
-      //     name: '番茄250g/份',
-      //     imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
-      //     sales: 10,
-      //     price: 33.6,
-      //     oldPrice: 39.6,
-      //     count: 2
-      //   }
-      // }
+    cartList: getLocalCartList()
 
-      // 更新架构【其实就是shopId、productId之间，夹了一层productList】
-      // 第一层是商铺id
-      // shopId: {
-      //   shopName:'沃尔玛'
-      //   productList:{
-      //     // 第二层是商品id
-      //     // 内容是商品详情 以及 购物数量  content.vue中的 item.id ---》productId
-      //     productId: {
-      //       _id: '1',
-      //       name: '番茄250g/份',
-      //       imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
-      //       sales: 10,
-      //       price: 33.6,
-      //       oldPrice: 39.6,
-      //       count: 2
-      //     }
-      //  }
-      // }
-    }
+    // cartList: {
+    // // 第一层是商铺id
+    // shopId: {
+    //   // 第二层是商品id
+    //   // 内容是商品详情 以及 购物数量  content.vue中的 item.id ---》productId
+    //   productId: {
+    //     _id: '1',
+    //     name: '番茄250g/份',
+    //     imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
+    //     sales: 10,
+    //     price: 33.6,
+    //     oldPrice: 39.6,
+    //     count: 2
+    //   }
+    // }
+
+    // 更新架构【其实就是shopId、productId之间，夹了一层productList】
+    // 第一层是商铺id
+    // shopId: {
+    //   shopName:'沃尔玛'
+    //   productList:{
+    //     // 第二层是商品id
+    //     // 内容是商品详情 以及 购物数量  content.vue中的 item.id ---》productId
+    //     productId: {
+    //       _id: '1',
+    //       name: '番茄250g/份',
+    //       imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
+    //       sales: 10,
+    //       price: 33.6,
+    //       oldPrice: 39.6,
+    //       count: 2
+    //     }
+    //  }
+    // }
+    // }
   },
   mutations: {
     // 响应外部事件 state即上面的存储的数据，payload即外部进来的数据
@@ -63,6 +78,7 @@ export default createStore({
       if (product.count < 0) { product.count = 0 } // 防止负数
       shopInfo.productList[productId] = product
       state.cartList[shopId] = shopInfo
+      setLocalCartList(state)
       // 整个思路就是
       // 根据 入参id，一步步取 商家产品列表、取产品,
       // 商家产品列表为空，则初始空对象， 产品取得为空，则 把 入参 产品详情 加给state取出的这个 产品空对象，
@@ -88,6 +104,7 @@ export default createStore({
       // 商家信息数据 拿到后，赋值商家名称，置回
       shopInfo.shopName = shopName
       state.cartList[shopId] = shopInfo
+      setLocalCartList(state)
     },
 
     // 更改 购物车内容Item的 选中状态
@@ -96,12 +113,14 @@ export default createStore({
       // 因为这里必定是UI存在 才能点击跳转到此，UI存在则其双向绑定数据必定存在
       const product = state.cartList[shopId]?.productList[productId]
       product.check = !product.check
+      setLocalCartList(state)
     },
 
     // 清空购物车（产品列表）
     cleanCartProducts (state, payload) {
       const { shopId } = payload
       state.cartList[shopId].productList = {}
+      setLocalCartList(state)
     },
 
     // 全选按钮
@@ -115,6 +134,7 @@ export default createStore({
           product.check = true
         }
       }
+      setLocalCartList(state)
     }
   },
   actions: {
