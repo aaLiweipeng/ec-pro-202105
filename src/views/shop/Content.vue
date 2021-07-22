@@ -54,7 +54,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { get } from '../../utils/request'
-import { useCommonCartEffect } from './commonCartEffect'
+import { useCommonCartEffect } from '../../effects/commonCartEffect'
 
 const categories = [
   { name: '全部商品', tab: 'all' },
@@ -113,6 +113,8 @@ const useCartEffect = (currentTab, shopId) => {
     changeShopName(shopId, shopName)
   }
   const getProductCartCount = (cartList, shopId, productId) => {
+    console.log('Content.vue getProductCartCount cartList --- ', cartList)
+    console.log('Content.vue getProductCartCount cartList?.[shopId] --- ', cartList?.[shopId])
     return cartList?.[shopId]?.productList?.[productId]?.count || 0
   }
 
@@ -146,7 +148,7 @@ export default {
     top: 1.5rem;
     bottom: .5rem;
 }
-// 左侧分类List
+// 左侧分类List  flex布局下，指定宽度
 .category {
     overflow-y: scroll;
     height: 100%;
@@ -165,7 +167,7 @@ export default {
     }
 }
 
-// 右侧 分类产品内容 列表模块
+// 右侧 分类产品内容 列表模块 ——  flex布局下，自适应宽度
 .product {
     overflow-y: scroll;
     flex: 1;

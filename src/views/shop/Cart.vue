@@ -80,7 +80,7 @@
                 总计：<span class="check__info__price">&yen; {{cartCalculations.price}}</span>
             </div>
             <div class="check__btn">
-                <router-link :to="{name: 'Home'}">
+                <router-link :to="{path: `/orderConfirmation/${shopId}`}">
                   去结算
                 </router-link>
             </div>
@@ -89,47 +89,19 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { useCommonCartEffect } from './commonCartEffect'
+import { useCommonCartEffect } from '../../effects/commonCartEffect'
 
 // 页面数量、价格 总计 相关逻辑
 const useCartEffect = (shopId) => {
-  const { changeCartItemInfo } = useCommonCartEffect()
+  const { cartProductList, changeCartItemInfo, cartCalculations } = useCommonCartEffect(shopId)
 
   const store = useStore()
 
   // 从state 取出缓存的 购物车数据
-  const cartList = store.state.cartList
-
-  // 总数、总价、全选按钮判定，三合一
-  // 【因为重复逻辑很多, 都是要获取 并遍历 产品列表，对每个迭代进行处理】
-  const cartCalculations = computed(() => {
-    const productList = cartList[shopId]?.productList
-    const result = { total: 0, price: 0, allChecked: true }
-    if (productList) {
-      for (const i in productList) {
-        const product = productList[i]
-
-        // 计算总数
-        result.total += product.count
-        // 选中的才加入总价
-        if (product.check) {
-          result.price += (product.count * product.price)
-        }
-        // 这个产品有在购物车中【count > 0】 且 ，没被选中
-        if (product.count > 0 && !product.check) {
-          result.allChecked = false
-        }
-      }
-    }
-    result.price = result.price.toFixed(2)
-    console.log('cartList total --- ', result.total)
-    console.log('cartList totalPrice --- ', result.price)
-
-    return result
-  })
+  // const cartList = store.state.cartList
 
   // 计算 购物车商品 总数
   // const total = computed(() => {
@@ -182,13 +154,6 @@ const useCartEffect = (shopId) => {
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
   }
-
-  // 从state 取出缓存的 购物车数据 商品列表
-  const cartProductList = computed(() => {
-    // 鲁棒性逻辑，若取不到数据，返回空数组
-    const productList = cartList[shopId]?.productList || []
-    return productList
-  })
 
   const cleanCartProducts = (shopId) => {
     // shopId 用来 删除 指定商家的 整个产品列表
