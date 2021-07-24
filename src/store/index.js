@@ -1,16 +1,24 @@
 import { createStore } from 'vuex'
 
 const setLocalCartList = (state) => {
+  console.log('store --- setLocalCartList --- ')
   const { cartList } = state
   const cartListString = JSON.stringify(cartList)
   localStorage.cartList = cartListString
 }
 
 const getLocalCartList = () => {
-  const tempObject = JSON.parse(localStorage.cartList)
-  console.log('getLocalCartList JSON.parse(localStorage.cartList) ----- ', tempObject)
+  // const tempObject = JSON.parse(localStorage.cartList)
+  // console.log('getLocalCartList JSON.parse(localStorage.cartList) ----- ', tempObject)
 
-  return tempObject || JSON.parse('{}')
+  // return tempObject || JSON.parse('{}')
+
+  console.log('store --- getLocalCartList ---')
+  try {
+    return JSON.parse(localStorage.cartList)
+  } catch (e) {
+    return {}
+  }
 }
 
 export default createStore({
@@ -118,6 +126,7 @@ export default createStore({
 
     // 清空购物车（产品列表）
     cleanCartProducts (state, payload) {
+      console.log('store --- cleanCartProducts ---')
       const { shopId } = payload
       state.cartList[shopId].productList = {}
       setLocalCartList(state)

@@ -16,13 +16,23 @@ export const useCommonCartEffect = (shopId) => {
   // 从state 取出缓存的 购物车数据 商品列表
   const cartProductList = computed(() => {
     // 鲁棒性逻辑，若取不到数据，返回空数组
-    const productList = store.state.cartList[shopId]?.productList || []
+    const productList = store.state.cartList[shopId]?.productList || {}
     // const productList = cartList?.[shopId]?.productList || []
+
+    const notEmptyProductList = {}
+    for (const i in productList) {
+      const product = productList[i]
+      if (product.count > 0) {
+        notEmptyProductList[i] = product
+      }
+    }
+    console.log(notEmptyProductList)
+
     console.log('useCommonCartEffect cartProductList shopId --- ', shopId)
     console.log('useCommonCartEffect cartProductList cartList --- ', cartList)
     console.log('useCommonCartEffect cartProductList cartList[shopId] --- ', cartList[shopId])
     console.log('useCommonCartEffect cartProductList productList --- ', productList)
-    return productList
+    return notEmptyProductList
   })
 
   // 从state 取出缓存的 购物车
