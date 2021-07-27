@@ -1,10 +1,15 @@
 <template>
     <div class="order">
         <div class="order__price">实付金额 <b>￥{{cartCalculations.price}}</b></div>
-        <div class="order__btn">提交订单</div>
+        <div class="order__btn" @click="() => handleSubmitClick(true)">提交订单</div>
     </div>
-    <div class="mask">
-        <div class="mask__content">
+
+    <!-- 确认订单弹框套件 -->
+    <div
+      class="mask"
+      v-show="showConfirm"
+      @click="() => handleSubmitClick(false)">
+        <div class="mask__content" @click.stop>
             <h3 class="mask__content__title">确认要离开收银台？</h3>
             <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
             <div class="mask__content__btns">
@@ -20,65 +25,89 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { useCommonCartEffect } from '../../effects/commonCartEffect'
 import { post } from '../../utils/request'
 
+const useMarkOrderEffect = (shopId, shopName, cartProductList) => {
+  const router = useRouter()
+  const store = useStore()
+
+  // 确认订单按钮 点击事件
+  const handleConfirmOrder = async (isCanceled) => {
+    const products = []
+    // 遍历这个JSONObject Array
+    for (const i in cartProductList.value) {
+      const product = cartProductList.value[i]
+      products.push({ id: parseInt(product._id, 10), num: product.count })
+    }
+    console.log(products)
+
+    try {
+      const result = await post('/api/order', {
+        addressId: 1,
+        shopId,
+        shopName: shopName.value,
+        isCanceled,
+        products
+      })
+
+      console.log('result --- ', result)
+
+      if (result?.errno === 0) {
+        if (isCanceled) {
+          alert('取消订单成功')
+        } else {
+          alert('下单成功')
+        }
+        store.commit('cleanCartProducts', { shopId })
+        router.push({ name: 'OrderList' })
+      //   showToast('请求成功')
+      } else {
+        // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
+      //   showToast('请求失败')
+        alert('下单失败---' + result?.errno)
+      }
+    } catch (e) {
+      // API写错、网络错误等情况
+      alert('下单失败', e)
+      console.log(e)
+      // showToast('请求失败')
+    }
+  }
+
+  return { handleConfirmOrder }
+}
+
+const useShowMaskEffect = () => {
+  // 用于显示mask套件的控制
+  const showConfirm = ref(false)
+
+  // 提交按钮事件 回调
+  const handleSubmitClick = (status) => {
+    showConfirm.value = status
+  }
+
+  return { showConfirm, handleSubmitClick }
+}
+
 export default {
   name: 'Order',
   setup () {
     const route = useRoute()
-    const router = useRouter()
-    const store = useStore()
 
     const shopId = parseInt(route.params.id, 10)
     const { cartCalculations, shopName, cartProductList } = useCommonCartEffect(shopId)
 
-    // 确认订单按钮 点击事件
-    const handleConfirmOrder = async (isCanceled) => {
-      const products = []
-      // 遍历这个JSONObject Array
-      for (const i in cartProductList.value) {
-        const product = cartProductList.value[i]
-        products.push({ id: parseInt(product._id, 10), num: product.count })
-      }
-      console.log(products)
+    // 确认订单按钮处理 模块
+    const { handleConfirmOrder } = useMarkOrderEffect(shopId, shopName, cartProductList)
 
-      try {
-        const result = await post('/api/order', {
-          addressId: 1,
-          shopId,
-          shopName: shopName.value,
-          isCanceled,
-          products
-        })
+    // mask套件、弹框、提交按钮事件处理 模块
+    const { showConfirm, handleSubmitClick } = useShowMaskEffect()
 
-        console.log('result --- ', result)
-
-        if (result?.errno === 0) {
-          if (isCanceled) {
-            alert('取消订单成功')
-          } else {
-            alert('下单成功')
-          }
-          store.commit('cleanCartProducts', { shopId })
-          router.push({ name: 'Home' })
-        //   showToast('请求成功')
-        } else {
-          // API写错 或者 请求成功送出，但由于服务器或者请求数据等其他情况导致失败
-        //   showToast('请求失败')
-          alert('下单失败---' + result?.errno)
-        }
-      } catch (e) {
-        // API写错、网络错误等情况
-        alert('下单失败', e)
-        console.log(e)
-        // showToast('请求失败')
-      }
-    }
-
-    return { handleConfirmOrder, cartCalculations }
+    return { handleConfirmOrder, cartCalculations, showConfirm, handleSubmitClick }
   }
 }
 </script>
@@ -117,7 +146,7 @@ export default {
     right: 0;
     bottom: 0;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.5);// 蒙版背景
     // 弹框
     &__content {
         position: absolute;

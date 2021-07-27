@@ -53,11 +53,11 @@
                     <!-- 产品加减键 -->
                     <div class="product__number">
                         <span class="product__number__minus"
-                          @click="() => {changeCartItemInfo(shopId, item._id, item, -1)}">-</span>
+                          @click="() => changeCartItemInfo(shopId, item._id, item, -1)">-</span>
                         {{item?.count || 0}}
                         <span
                           class="product__number__plus"
-                          @click="() => {changeCartItemInfo(shopId, item._id, item, 1)}">+</span>
+                          @click="() => changeCartItemInfo(shopId, item._id, item, 1)">+</span>
                     </div>
                 </div>
             </template>
@@ -79,7 +79,7 @@
             <div class="check__info">
                 总计：<span class="check__info__price">&yen; {{cartCalculations.price}}</span>
             </div>
-            <div class="check__btn">
+            <div class="check__btn" v-show="cartCalculations.total > 0">
                 <router-link :to="{path: `/orderConfirmation/${shopId}`}">
                   去结算
                 </router-link>

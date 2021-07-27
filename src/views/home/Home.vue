@@ -6,14 +6,14 @@
 
   </div>
 
-  <Docker />
+  <Docker :currentIndex="0"/>
 
 </template>
 
 <script>
 import TopPart from './TopPart'
 import Nearby from './Nearby'
-import Docker from './Docker'
+import Docker from '../../components/Docker'
 
 export default {
   name: 'Home',
