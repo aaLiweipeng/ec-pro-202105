@@ -49,7 +49,7 @@ export default {
   &__content {
     flex: 1;
     &--bordered {
-      border-bottom: 2px solid $content-bgColor; //item 内容content 下边框
+      border-bottom: .02rem solid $content-bgColor; //item 内容content 下边框
     }
     padding-bottom: 0.12rem;
 

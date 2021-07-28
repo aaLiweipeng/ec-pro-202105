@@ -54,7 +54,7 @@ export default {
     background-repeat: no-repeat;
     &__header {
         position: relative;
-        padding-top: .26rem;
+        padding-top: .2rem;
         line-height: .22rem;
         color: $bgColor-white;
         text-align: center;
